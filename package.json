@@ -8,6 +8,7 @@
     "build": "rimraf ./dist && gulp",
     "start": "cd dist && node index.js",
     "start:gulp": "npm-run-all build start",
+    "start:build": "npm run build && npm run start",
     "dev": "nodemon --watch src -e ts,ejs --exec npm run start:gulp",
     "prettier:fix": "prettier --write ./src/**/*{js,ts}",
     "prepare": "husky install"
