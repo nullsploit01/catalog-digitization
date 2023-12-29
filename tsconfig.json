@@ -2,6 +2,11 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "commonjs",
+    "baseUrl": "./",
+    "paths": {
+      "src/*": ["src/*"]
+    },
+    "strictNullChecks": true,
     "lib": ["es6"],
     "allowJs": true,
     "outDir": "dist",
