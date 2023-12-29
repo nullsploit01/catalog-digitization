@@ -1,6 +1,6 @@
 module.exports = {
   semi: false,
-  trailingComma: "none",
+  trailingComma: 'none',
   singleQuote: true,
   printWidth: 100,
   tabWidth: 2,
@@ -10,10 +10,10 @@ module.exports = {
   importOrderSortSpecifiers: true,
   importOrderCaseInsensitive: true,
   importOrder: [
-    "<THIRD_PARTY_MODULES>",
+    '<THIRD_PARTY_MODULES>',
     // '^(.*)/components/(.*)$', // Add any folders you want to be separate
-    "^src/(.*)$",
-    "@/(.*)$", // Absolute path imports
+    '^src/(.*)$',
+    '@/(.*)$' // Absolute path imports
   ],
-  plugins: ["@trivago/prettier-plugin-sort-imports"],
-};
+  plugins: ['@trivago/prettier-plugin-sort-imports']
+}

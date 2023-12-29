@@ -9,7 +9,7 @@
     "start": "node dist/index.js",
     "build": "rimraf ./dist && tsc",
     "start:build": "npm run build && npm run start",
-    "prettier:fix": "prettier --write ./src/**/*{js,ts}",
+    "prettier:fix": "prettier --write ./**/*{js,ts,jsx,tsx}",
     "dev": "export NODE_ENV=local && ts-node-dev src/index.ts --respawn --transpileOnly"
   },
   "repository": {
@@ -41,7 +41,7 @@
     "typescript": "^5.3.3"
   },
   "lint-staged": {
-    "**/*.{js,ts}": [
+    "**/*.{js,ts,tsx,jsx}": [
       "npm run prettier:fix"
     ]
   }

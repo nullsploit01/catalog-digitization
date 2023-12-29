@@ -16,5 +16,5 @@
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
-  "exclude": ["./gulpfile.js", "dist"]
+  "exclude": ["ui", "dist"]
 }
