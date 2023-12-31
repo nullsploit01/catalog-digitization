@@ -4,7 +4,8 @@ import { styled } from '@mui/material/styles'
 import { FC } from 'react'
 
 interface IFileUploadButtonProps {
-  onInput?: (files: FileList | null) => void
+  onUpload?: (files: FileList | null) => void
+  multiple?: boolean
 }
 
 const VisuallyHiddenInput = styled('input')({
@@ -19,12 +20,15 @@ const VisuallyHiddenInput = styled('input')({
   width: 1
 })
 
-const FileUploadButton: FC<IFileUploadButtonProps> = ({ onInput }) => {
+const FileUploadButton: FC<IFileUploadButtonProps> = ({ onUpload, multiple }) => {
   return (
     <Button component="label" color="secondary" variant="contained" startIcon={<CloudUploadIcon />}>
       Upload file
       <VisuallyHiddenInput
-        onChange={(e) => onInput?.(e.target.files)}
+        onChange={(e) => {
+          onUpload?.(e.target.files)
+        }}
+        multiple={multiple}
         type="file"
         accept="image/*"
       />
