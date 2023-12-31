@@ -1,6 +1,11 @@
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import Button from '@mui/material/Button'
 import { styled } from '@mui/material/styles'
+import { FC } from 'react'
+
+interface IFileUploadButtonProps {
+  onInput?: (files: FileList | null) => void
+}
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -14,11 +19,15 @@ const VisuallyHiddenInput = styled('input')({
   width: 1
 })
 
-const FileUploadButton = () => {
+const FileUploadButton: FC<IFileUploadButtonProps> = ({ onInput }) => {
   return (
-    <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}>
+    <Button component="label" color="secondary" variant="contained" startIcon={<CloudUploadIcon />}>
       Upload file
-      <VisuallyHiddenInput type="file" />
+      <VisuallyHiddenInput
+        onChange={(e) => onInput?.(e.target.files)}
+        type="file"
+        accept="image/*"
+      />
     </Button>
   )
 }
