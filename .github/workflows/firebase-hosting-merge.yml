@@ -18,6 +18,7 @@ jobs:
         working-directory: ./ui
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
+          entryPoint: ./ui
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_CATALOG_DIGITIZATION }}'
           channelId: live
