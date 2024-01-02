@@ -3,11 +3,10 @@ import { IControllerMethod } from 'src/interfaces/index'
 class Controller {
   uploadImages: IControllerMethod = async (req, res, next) => {
     try {
-      const images = req.body
-      console.log(
-        '🚀 ~ file: index.ts:7 ~ Controller ~ uploadImages:IControllerMethod= ~ images:',
-        req.files
-      )
+      const images = req.files
+      if (Array.isArray(images)) {
+        images.map((image) => image.filename)
+      }
       res.json({ response: 'works!' })
     } catch (error) {
       next(error)
