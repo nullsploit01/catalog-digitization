@@ -31,6 +31,7 @@ const FileUploadButton: FC<IFileUploadButtonProps> = ({ onUpload, multiple }) =>
         multiple={multiple}
         type="file"
         accept="image/*"
+        name="images"
       />
     </Button>
   )
