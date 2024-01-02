@@ -7,10 +7,10 @@
     "test": "jest",
     "prepare": "husky install",
     "start": "node dist/index.js",
-    "build": "rimraf ./dist && tsc",
-    "start:build": "npm run build && npm run start",
+    "start:prod": "npm run build && npm run start",
+    "build": "rimraf ./dist && tsc && resolve-tspaths",
     "prettier:fix": "prettier --write ./**/**/*.{js,ts,jsx,tsx}",
-    "dev": "export NODE_ENV=local && ts-node-dev src/index.ts --respawn --transpileOnly"
+    "dev": "export NODE_ENV=local && ts-node-dev -r tsconfig-paths/register src/index.ts --respawn --transpileOnly"
   },
   "repository": {
     "type": "git",
@@ -38,6 +38,7 @@
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.3.3"
   },
   "lint-staged": {

@@ -4,7 +4,7 @@
     "module": "commonjs",
     "baseUrl": "./",
     "paths": {
-      "src/*": ["src/*"]
+      "src/*": ["./src/*"]
     },
     "strictNullChecks": true,
     "lib": ["es6"],

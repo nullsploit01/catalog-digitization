@@ -1,0 +1,14 @@
+import { IControllerMethod } from 'src/interfaces/index'
+
+class Controller {
+  uploadImages: IControllerMethod = async (req, res, next) => {
+    try {
+      const images = req.body
+      res.json({ response: 'works!' })
+    } catch (error) {
+      next(error)
+    }
+  }
+}
+
+export const controller = new Controller()
