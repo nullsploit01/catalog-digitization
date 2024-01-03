@@ -4,6 +4,8 @@ import express from 'express'
 const server = express()
 const PORT = process.env.PORT || 8080
 
+server.use(express.json())
+
 server.use(router)
 
 server.listen(PORT, () => {

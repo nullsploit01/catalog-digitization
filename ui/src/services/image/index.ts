@@ -2,7 +2,7 @@ import { axiosClient } from 'src/clients/axios'
 
 class ImageService {
   uploadIMages(images: FileList) {
-    axiosClient.post('/images', images)
+    return axiosClient.post('/images', images)
   }
 }
 

@@ -16,7 +16,7 @@ const App = () => {
       return
     }
 
-    imageService.uploadIMages(_files)
+    imageService.uploadIMages(_files).then((r) => console.log(r.data))
   }
 
   return (
