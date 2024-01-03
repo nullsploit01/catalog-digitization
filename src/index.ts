@@ -1,9 +1,11 @@
 import { router } from './router'
+import cors from 'cors'
 import express from 'express'
 
 const server = express()
 const PORT = process.env.PORT || 8080
 
+server.use(cors())
 server.use(express.json())
 
 server.use(router)
