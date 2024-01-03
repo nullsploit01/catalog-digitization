@@ -1,4 +1,5 @@
-import { router } from './router'
+import { router } from 'src/router'
+
 import cors from 'cors'
 import express from 'express'
 

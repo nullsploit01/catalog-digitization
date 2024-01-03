@@ -10,9 +10,9 @@ module.exports = {
   importOrderSortSpecifiers: true,
   importOrderCaseInsensitive: true,
   importOrder: [
+    '^src/(.*)$',
     '<THIRD_PARTY_MODULES>',
     // '^(.*)/components/(.*)$', // Add any folders you want to be separate
-    '^src/(.*)$',
     '@/(.*)$' // Absolute path imports
   ],
   plugins: ['@trivago/prettier-plugin-sort-imports']
