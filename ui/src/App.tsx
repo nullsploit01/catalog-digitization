@@ -1,24 +1,20 @@
-import FileUploadButton from './components/atoms/buttons/file-upload'
-import CustomMenu from './components/molecules/menu'
 import GetStartedMenu from './components/organisms/get-started-menu'
-import { imageService } from './services/image'
-import { Box, Button, Typography } from '@mui/material'
-import { useState } from 'react'
+import { Box, Typography } from '@mui/material'
 
 const App = () => {
-  const [_files, setFiles] = useState<FileList | null>(null)
+  // const [_files, setFiles] = useState<FileList | null>(null)
 
-  const onFileUpload = (files: FileList | null) => {
-    setFiles(files)
-  }
+  // const onFileUpload = (files: FileList | null) => {
+  //   setFiles(files)
+  // }
 
-  const onUpload = () => {
-    if (!_files) {
-      return
-    }
+  // const onUpload = () => {
+  //   if (!_files) {
+  //     return
+  //   }
 
-    imageService.uploadIMages(_files).then((r) => console.log(r.data))
-  }
+  //   imageService.uploadIMages(_files)
+  // }
 
   return (
     <Box sx={{ height: '100vh', p: 3 }}>
