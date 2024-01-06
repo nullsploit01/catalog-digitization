@@ -1,4 +1,4 @@
-import GetStartedMenu from './components/organisms/get-started-menu'
+import AddProductsMenu from './components/organisms/add-products-menu'
 import { Box, Typography } from '@mui/material'
 
 const App = () => {
@@ -7,16 +7,16 @@ const App = () => {
       <Box sx={{ p: 3 }}>
         <Typography variant="h4">Catalog Digitization</Typography>
       </Box>
+      <Box sx={{ height: '80%', overflow: 'auto' }}></Box>
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'flex-end',
           alignItems: 'flex-end',
-          height: '80%',
-          p: 5
+          px: 5
         }}
       >
-        <GetStartedMenu />
+        <AddProductsMenu />
       </Box>
     </Box>
   )
