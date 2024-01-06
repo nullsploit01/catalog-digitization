@@ -8,5 +8,6 @@ export interface ICustomMenuProps {
 
 export interface ICustomMenuOption {
   name: string
+  value: string
   icon: ReactElement
 }

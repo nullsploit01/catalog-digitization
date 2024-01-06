@@ -1,4 +1,3 @@
-import CustomCard from './components/molecules/card'
 import AddProductsMenu from './components/organisms/add-products-menu'
 import { Box, Typography } from '@mui/material'
 
