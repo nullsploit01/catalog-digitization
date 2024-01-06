@@ -1,5 +1,6 @@
-import './App.css'
 import FileUploadButton from './components/atoms/buttons/file-upload'
+import CustomMenu from './components/molecules/menu'
+import GetStartedMenu from './components/organisms/get-started-menu'
 import { imageService } from './services/image'
 import { Box, Button, Typography } from '@mui/material'
 import { useState } from 'react'
@@ -20,14 +21,19 @@ const App = () => {
   }
 
   return (
-    <div>
+    <Box sx={{ height: '100vh', p: 3 }}>
       <Typography variant="h4">Catalog Digitization</Typography>
-      <Box sx={{ p: 3 }}>
-        <p>Upload Product images</p>
-        <FileUploadButton onUpload={onFileUpload} multiple />
-        <Button onClick={onUpload}>Upload</Button>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%'
+        }}
+      >
+        <GetStartedMenu />
       </Box>
-    </div>
+    </Box>
   )
 }
 
