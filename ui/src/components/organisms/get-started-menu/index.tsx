@@ -1,5 +1,6 @@
 import CustomMenu from 'src/components/molecules/menu'
 
+import { Add } from '@mui/icons-material/'
 import AddIcon from '@mui/icons-material/Add'
 import UploadIcon from '@mui/icons-material/Upload'
 import React from 'react'
@@ -15,7 +16,7 @@ const GetStartedMenu: React.FC = () => {
       icon: <UploadIcon />
     }
   ]
-  return <CustomMenu title="Get Started" options={options} />
+  return <CustomMenu icon={<AddIcon />} options={options} />
 }
 
 export default GetStartedMenu

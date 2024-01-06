@@ -2,29 +2,18 @@ import GetStartedMenu from './components/organisms/get-started-menu'
 import { Box, Typography } from '@mui/material'
 
 const App = () => {
-  // const [_files, setFiles] = useState<FileList | null>(null)
-
-  // const onFileUpload = (files: FileList | null) => {
-  //   setFiles(files)
-  // }
-
-  // const onUpload = () => {
-  //   if (!_files) {
-  //     return
-  //   }
-
-  //   imageService.uploadIMages(_files)
-  // }
-
   return (
-    <Box sx={{ height: '100vh', p: 3 }}>
-      <Typography variant="h4">Catalog Digitization</Typography>
+    <Box sx={{ height: '100vh' }}>
+      <Box sx={{ p: 3 }}>
+        <Typography variant="h4">Catalog Digitization</Typography>
+      </Box>
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100%'
+          justifyContent: 'flex-end',
+          alignItems: 'flex-end',
+          height: '80%',
+          p: 5
         }}
       >
         <GetStartedMenu />

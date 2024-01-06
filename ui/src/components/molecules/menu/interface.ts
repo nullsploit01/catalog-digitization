@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 
 export interface ICustomMenuProps {
-  title: string
+  icon: ReactElement
   options: ICustomMenuOption[]
   onClick?: (value: string) => void
 }

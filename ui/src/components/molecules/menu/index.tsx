@@ -1,6 +1,5 @@
 import { ICustomMenuProps } from './interface'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import Button from '@mui/material/Button'
+import { Fab } from '@mui/material'
 import Menu, { MenuProps } from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { alpha, styled } from '@mui/material/styles'
@@ -43,7 +42,7 @@ const StyledMenu = styled((props: MenuProps) => (
   }
 }))
 
-const CustomMenu: React.FC<ICustomMenuProps> = ({ options, title, onClick }) => {
+const CustomMenu: React.FC<ICustomMenuProps> = ({ options, icon, onClick }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
 
@@ -58,28 +57,10 @@ const CustomMenu: React.FC<ICustomMenuProps> = ({ options, title, onClick }) => 
 
   return (
     <div>
-      <Button
-        id="demo-customized-button"
-        aria-controls={open ? 'demo-customized-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        variant="contained"
-        color="secondary"
-        disableElevation
-        onClick={handleMenuClick}
-        endIcon={<KeyboardArrowDownIcon />}
-      >
-        {title}
-      </Button>
-      <StyledMenu
-        id="demo-customized-menu"
-        MenuListProps={{
-          'aria-labelledby': 'demo-customized-button'
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleOptionClick}
-      >
+      <Fab color="secondary" onClick={handleMenuClick}>
+        {icon}
+      </Fab>
+      <StyledMenu anchorEl={anchorEl} open={open} onClose={handleOptionClick}>
         {options.map((option) => (
           <MenuItem onClick={() => handleOptionClick(option.name)} disableRipple>
             {option.icon}
