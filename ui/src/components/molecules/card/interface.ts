@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 
 export interface ICustomCardProps {
   title: string
-  description: string
+  description?: string
   image?: string
   actions?: ICardActions[]
 }

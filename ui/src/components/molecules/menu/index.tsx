@@ -61,8 +61,8 @@ const CustomMenu: React.FC<ICustomMenuProps> = ({ options, icon, onClick }) => {
         {icon}
       </Fab>
       <StyledMenu anchorEl={anchorEl} open={open} onClose={handleOptionClick}>
-        {options.map((option) => (
-          <MenuItem onClick={() => handleOptionClick(option.value)} disableRipple>
+        {options.map((option, index) => (
+          <MenuItem key={index} onClick={() => handleOptionClick(option.value)} disableRipple>
             {option.icon}
             {option.name}
           </MenuItem>
