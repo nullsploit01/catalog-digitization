@@ -5,22 +5,14 @@ import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
-import { FC } from 'react'
+import { FC, Fragment } from 'react'
 
-const CustomCard: FC<ICustomCardProps> = ({ image, title, description, actions }) => {
+const CustomCard: FC<ICustomCardProps> = ({ image, content, actions }) => {
   return (
-    <Card variant="outlined" sx={{ maxWidth: 345 }}>
-      {image && (
-        <CardMedia sx={{ height: 140 }} image="/static/images/cards/contemplative-reptile.jpg" />
-      )}
-
+    <Card variant="outlined" sx={{ width: 345, textWrap: 'wrap', overflow: 'auto' }}>
+      {image && <CardMedia sx={{ height: 140, py: 8 }} image={image} />}
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {title}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {description}
-        </Typography>
+        <Fragment>{content}</Fragment>
       </CardContent>
       {actions && actions.length && (
         <CardActions>
