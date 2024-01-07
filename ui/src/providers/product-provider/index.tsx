@@ -7,8 +7,10 @@ import { generateID } from 'src/utils'
 export const ProductContext = createContext<IProductContext>({} as IProductContext)
 
 export const ProductContextProvider: FC<IProductContextProvider> = ({ children }) => {
-  const [_products, setProducts] = useState<IProduct[]>([])
   const productCount = useRef(1)
+
+  const [_products, setProducts] = useState<IProduct[]>([])
+  const [_productToEdit, setProductToEdit] = useState<IProduct | null>(null)
 
   const addProduct = (product: IProduct | null = null) => {
     if (!product) {
@@ -27,8 +29,25 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
     setProducts(products)
   }
 
+  const editProduct = (product: IProduct) => {
+    setProductToEdit(product)
+  }
+
+  const closeEditProductModal = () => {
+    setProductToEdit(null)
+  }
+
   return (
-    <ProductContext.Provider value={{ products: _products, addProduct, removeProduct }}>
+    <ProductContext.Provider
+      value={{
+        addProduct,
+        removeProduct,
+        editProduct,
+        closeEditProductModal,
+        products: _products,
+        productToEdit: _productToEdit
+      }}
+    >
       {children}
     </ProductContext.Provider>
   )

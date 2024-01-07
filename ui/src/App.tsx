@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material'
 
 import AddProductsMenu from 'src/components/organisms/add-products-menu'
 import CatalogProducts from 'src/components/organisms/catalog-products'
+import EditProductModal from 'src/components/organisms/edit-product-modal'
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         }}
       >
         <AddProductsMenu />
+        <EditProductModal />
       </Box>
     </Box>
   )

@@ -9,7 +9,7 @@ import { IProduct } from 'src/models/product'
 import { getFormattedPrice } from 'src/utils'
 
 const CatalogProducts = () => {
-  const { products, removeProduct } = useProducts()
+  const { products, removeProduct, editProduct } = useProducts()
 
   const renderContent = (product: IProduct) => {
     return (
@@ -33,7 +33,7 @@ const CatalogProducts = () => {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
         <ButtonGroup variant="text">
-          <Button>
+          <Button onClick={() => editProduct(product)}>
             <Edit color="secondary" />
           </Button>
           <Button onClick={() => removeProduct(product)}>
