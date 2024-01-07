@@ -1,28 +1,34 @@
+import { IProductContext, IProductContextProvider } from './interface'
+import { createContext, FC, useRef, useState } from 'react'
+
 import { IProduct } from 'src/models/product'
 import { generateID } from 'src/utils'
-
-import { IProductContext, IProductContextProvider } from './interface'
-import { createContext, FC, useState } from 'react'
 
 export const ProductContext = createContext<IProductContext>({} as IProductContext)
 
 export const ProductContextProvider: FC<IProductContextProvider> = ({ children }) => {
   const [_products, setProducts] = useState<IProduct[]>([])
+  const productCount = useRef(1)
 
   const addProduct = (product: IProduct | null = null) => {
     if (!product) {
       product = {
         id: generateID(),
-        name: `Product ${_products.length + 1}`,
+        name: `Product ${productCount.current}`,
         price: 0
       }
     }
+    productCount.current += 1
+    setProducts([product, ..._products])
+  }
 
-    setProducts([..._products, product])
+  const removeProduct = (product: IProduct) => {
+    const products = _products.filter((p) => p.id !== product.id)
+    setProducts(products)
   }
 
   return (
-    <ProductContext.Provider value={{ products: _products, addProduct }}>
+    <ProductContext.Provider value={{ products: _products, addProduct, removeProduct }}>
       {children}
     </ProductContext.Provider>
   )

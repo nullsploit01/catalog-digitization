@@ -1,6 +1,6 @@
-import { ProductContext } from 'src/providers/product-provider'
-
 import { useContext } from 'react'
+
+import { ProductContext } from 'src/providers/product-provider'
 
 export const useProducts = () => {
   const productContext = useContext(ProductContext)

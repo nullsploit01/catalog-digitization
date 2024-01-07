@@ -14,12 +14,7 @@ const CustomCard: FC<ICustomCardProps> = ({ image, content, actions }) => {
       <CardContent>
         <Fragment>{content}</Fragment>
       </CardContent>
-      {actions && actions.length && (
-        <CardActions>
-          <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button>
-        </CardActions>
-      )}
+      {actions && <CardActions>{actions}</CardActions>}
     </Card>
   )
 }

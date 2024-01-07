@@ -1,14 +1,15 @@
+import { Delete, Edit } from '@mui/icons-material/'
+import { Box, Button, ButtonGroup, Typography } from '@mui/material'
+import { Fragment } from 'react'
+
 import defaultProductImage from 'src/assets/images/default_product_image.png'
 import CustomCard from 'src/components/molecules/card'
 import { useProducts } from 'src/hooks/products'
 import { IProduct } from 'src/models/product'
 import { getFormattedPrice } from 'src/utils'
 
-import { Box, Typography } from '@mui/material'
-import { Fragment } from 'react'
-
 const CatalogProducts = () => {
-  const { products } = useProducts()
+  const { products, removeProduct } = useProducts()
 
   const renderContent = (product: IProduct) => {
     return (
@@ -28,12 +29,31 @@ const CatalogProducts = () => {
     )
   }
 
+  const renderActions = (product: IProduct) => {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
+        <ButtonGroup variant="text">
+          <Button>
+            <Edit color="secondary" />
+          </Button>
+          <Button onClick={() => removeProduct(product)}>
+            <Delete color="error" />
+          </Button>
+        </ButtonGroup>
+      </Box>
+    )
+  }
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
       {products.map((product, index) => {
         return (
           <Box key={index} sx={{ p: 3 }}>
-            <CustomCard content={renderContent(product)} image={defaultProductImage} />
+            <CustomCard
+              content={renderContent(product)}
+              image={defaultProductImage}
+              actions={renderActions(product)}
+            />
           </Box>
         )
       })}

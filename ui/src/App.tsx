@@ -1,7 +1,7 @@
+import { Box, Typography } from '@mui/material'
+
 import AddProductsMenu from 'src/components/organisms/add-products-menu'
 import CatalogProducts from 'src/components/organisms/catalog-products'
-
-import { Box, Typography } from '@mui/material'
 
 const App = () => {
   return (
