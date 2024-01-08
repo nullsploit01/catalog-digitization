@@ -8,7 +8,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 'auto',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -18,7 +18,7 @@ const style = {
 const CustomModal: FC<ICustomModalProps> = ({ open, handleClose, children }) => {
   return (
     <Modal open={open} onClose={handleClose}>
-      <Box sx={style}>{children}</Box>
+      <Box sx={style}>{children} </Box>
     </Modal>
   )
 }
