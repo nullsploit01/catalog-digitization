@@ -33,6 +33,11 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
     setProductToEdit(product)
   }
 
+  var updateProduct = (product: IProduct) => {
+    const products = _products.filter((p) => p.id !== product.id)
+    setProducts([product, ...products])
+  }
+
   const closeEditProductModal = () => {
     setProductToEdit(null)
   }
@@ -42,6 +47,7 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
       value={{
         addProduct,
         removeProduct,
+        updateProduct,
         editProduct,
         closeEditProductModal,
         products: _products,

@@ -1,4 +1,4 @@
-import { Box, TextareaAutosize, TextField, Typography } from '@mui/material'
+import { Box, Button, TextareaAutosize, TextField, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { Form, Formik } from 'formik'
 import { Fragment } from 'react'
@@ -8,10 +8,11 @@ import { useProducts } from 'src/hooks/products'
 import { IProduct } from 'src/models/product'
 
 const EditProductModal = () => {
-  const { productToEdit, closeEditProductModal } = useProducts()
+  const { productToEdit, closeEditProductModal, updateProduct } = useProducts()
 
-  const onSubmit = (values: IProduct) => {
-    console.log(values)
+  const onSubmit = (product: IProduct) => {
+    updateProduct(product)
+    closeEditProductModal()
   }
 
   return (
@@ -41,24 +42,18 @@ const EditProductModal = () => {
                         value={values.price}
                         placeholder="Price"
                       />
-                      <TextField
-                        sx={{ p: 2 }}
-                        name="color"
-                        placeholder="Color"
-                        onChange={handleChange}
-                        value={values.color}
-                      />
                     </Grid>
                     <Grid xs={12}>
-                      <TextField
-                        multiline
-                        fullWidth
-                        sx={{ p: 2 }}
-                        name="description"
-                        placeholder="Description"
-                        onChange={handleChange}
-                        value={values.description}
-                      />
+                      <Box sx={{ maxWidth: 'inherit', p: 2 }}>
+                        <TextField
+                          fullWidth
+                          multiline
+                          name="description"
+                          placeholder="Description"
+                          onChange={handleChange}
+                          value={values.description}
+                        />
+                      </Box>
                     </Grid>
                     <Grid xs={12}>
                       <TextField
@@ -94,6 +89,14 @@ const EditProductModal = () => {
                         placeholder="Inventory"
                       />
                     </Grid>
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                      <Button onClick={closeEditProductModal} sx={{ mx: 3 }} color="secondary">
+                        Cancel
+                      </Button>
+                      <Button type="submit" color="secondary" variant="contained">
+                        Save
+                      </Button>
+                    </Box>
                   </Form>
                 )}
               </Formik>
