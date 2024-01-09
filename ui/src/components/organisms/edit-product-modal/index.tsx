@@ -2,7 +2,7 @@ import CustomModal from 'src/components/molecules/modal'
 import { useProducts } from 'src/hooks/products'
 import { IProduct } from 'src/models/product'
 
-import { Box, Button, Card, CardMedia, TextField, Typography } from '@mui/material'
+import { Box, Button, Card, CardMedia, TextField, Tooltip, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { Form, Formik } from 'formik'
 import { Fragment } from 'react'
@@ -35,13 +35,17 @@ const EditProductModal = () => {
                               border: 1,
                               maxHeight: '130px',
                               maxWidth: '180px',
-                              overflow: 'hidden'
+                              overflow: 'hidden',
+                              borderRadius: 2,
+                              borderColor: 'gray'
                             }}
                           >
                             <Card>
                               <CardMedia sx={{ width: '100%', height: 'auto', display: 'block' }}>
                                 {values.image && (
-                                  <CardMedia sx={{ height: 140, py: 8 }} image={values.image} />
+                                  <Tooltip arrow placement="right" title="Edit Image">
+                                    <CardMedia sx={{ height: 140, py: 8 }} image={values.image} />
+                                  </Tooltip>
                                 )}
                               </CardMedia>
                             </Card>

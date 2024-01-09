@@ -4,7 +4,7 @@ import { IProduct } from 'src/models/product'
 import { getFormattedPrice } from 'src/utils'
 
 import { Delete, Edit } from '@mui/icons-material/'
-import { Box, Button, ButtonGroup, Typography } from '@mui/material'
+import { Box, ButtonGroup, IconButton, Typography } from '@mui/material'
 import { Fragment } from 'react'
 
 const CatalogProducts = () => {
@@ -32,12 +32,12 @@ const CatalogProducts = () => {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
         <ButtonGroup variant="text">
-          <Button onClick={() => editProduct(product)}>
+          <IconButton onClick={() => editProduct(product)}>
             <Edit color="secondary" />
-          </Button>
-          <Button onClick={() => removeProduct(product)}>
+          </IconButton>
+          <IconButton onClick={() => removeProduct(product)}>
             <Delete color="error" />
-          </Button>
+          </IconButton>
         </ButtonGroup>
       </Box>
     )
