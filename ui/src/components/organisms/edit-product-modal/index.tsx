@@ -1,11 +1,11 @@
+import CustomModal from 'src/components/molecules/modal'
+import { useProducts } from 'src/hooks/products'
+import { IProduct } from 'src/models/product'
+
 import { Box, Button, TextField, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { Form, Formik } from 'formik'
 import { Fragment } from 'react'
-
-import CustomModal from 'src/components/molecules/modal'
-import { useProducts } from 'src/hooks/products'
-import { IProduct } from 'src/models/product'
 
 const EditProductModal = () => {
   const { productToEdit, closeEditProductModal, updateProduct } = useProducts()
@@ -27,26 +27,44 @@ const EditProductModal = () => {
               <Formik initialValues={productToEdit} onSubmit={onSubmit}>
                 {({ values, dirty, handleChange }) => (
                   <Form>
-                    <Grid xs={12}>
-                      <TextField
-                        color="secondary"
-                        sx={{ mx: 1, mb: 1 }}
-                        name="name"
-                        onChange={handleChange}
-                        value={values.name}
-                        label="Name"
-                      />
-                      <TextField
-                        color="secondary"
-                        sx={{ mx: 1, mb: 1 }}
-                        type="number"
-                        InputProps={{ inputProps: { min: 0 } }}
-                        name="price"
-                        onChange={handleChange}
-                        value={values.price}
-                        label="Price"
-                      />
-                    </Grid>
+                    <Box sx={{ mr: 3, mb: 2, ml: 2 }}>
+                      <Grid container spacing={2}>
+                        <Grid xs={4}>
+                          <Box sx={{ border: 1, height: '100%' }}></Box>
+                        </Grid>
+                        <Grid lg={8}>
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              justifyContent: 'flex-end',
+                              flexDirection: 'column',
+                              maxWidth: 'inherit'
+                            }}
+                          >
+                            <TextField
+                              fullWidth
+                              color="secondary"
+                              sx={{ mx: 1, mb: 2 }}
+                              name="name"
+                              onChange={handleChange}
+                              value={values.name}
+                              label="Name"
+                            />
+                            <TextField
+                              fullWidth
+                              color="secondary"
+                              sx={{ mx: 1, mb: 2 }}
+                              type="number"
+                              InputProps={{ inputProps: { min: 0 } }}
+                              name="price"
+                              onChange={handleChange}
+                              value={values.price}
+                              label="Price"
+                            />
+                          </Box>
+                        </Grid>
+                      </Grid>
+                    </Box>
                     <Grid xs={12}>
                       <Box sx={{ maxWidth: 'inherit', mx: 1, mb: 1 }}>
                         <TextField
