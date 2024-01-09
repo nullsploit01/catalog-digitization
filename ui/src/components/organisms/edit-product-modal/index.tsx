@@ -1,4 +1,4 @@
-import { Box, Button, TextareaAutosize, TextField, Typography } from '@mui/material'
+import { Box, Button, TextField, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { Form, Formik } from 'formik'
 import { Fragment } from 'react'
@@ -20,36 +20,41 @@ const EditProductModal = () => {
       {productToEdit && (
         <CustomModal open={Boolean(productToEdit)} handleClose={closeEditProductModal}>
           <Box flexGrow={1}>
-            <Typography variant="h5">Edit {productToEdit?.name}</Typography>
+            <Typography mb={2} variant="h5">
+              Edit {productToEdit?.name}
+            </Typography>
             <Grid container spacing={2}>
               <Formik initialValues={productToEdit} onSubmit={onSubmit}>
-                {({ values, touched, handleChange }) => (
+                {({ values, dirty, handleChange }) => (
                   <Form>
                     <Grid xs={12}>
                       <TextField
-                        sx={{ p: 2 }}
+                        color="secondary"
+                        sx={{ mx: 1, mb: 1 }}
                         name="name"
                         onChange={handleChange}
                         value={values.name}
-                        placeholder="Name"
+                        label="Name"
                       />
                       <TextField
-                        sx={{ p: 2 }}
+                        color="secondary"
+                        sx={{ mx: 1, mb: 1 }}
                         type="number"
                         InputProps={{ inputProps: { min: 0 } }}
                         name="price"
                         onChange={handleChange}
                         value={values.price}
-                        placeholder="Price"
+                        label="Price"
                       />
                     </Grid>
                     <Grid xs={12}>
-                      <Box sx={{ maxWidth: 'inherit', p: 2 }}>
+                      <Box sx={{ maxWidth: 'inherit', mx: 1, mb: 1 }}>
                         <TextField
+                          color="secondary"
                           fullWidth
                           multiline
                           name="description"
-                          placeholder="Description"
+                          label="Description"
                           onChange={handleChange}
                           value={values.description}
                         />
@@ -57,43 +62,66 @@ const EditProductModal = () => {
                     </Grid>
                     <Grid xs={12}>
                       <TextField
-                        sx={{ p: 2 }}
-                        name="color"
-                        placeholder="Color"
-                        onChange={handleChange}
-                        value={values.color}
-                      />
-                      <TextField
-                        sx={{ p: 2 }}
+                        color="secondary"
+                        sx={{ mx: 1, mb: 1 }}
                         name="brand"
-                        placeholder="Brand"
+                        label="Brand"
                         onChange={handleChange}
                         value={values.brand}
+                      />
+                      <TextField
+                        color="secondary"
+                        sx={{ mx: 1, mb: 1 }}
+                        name="model"
+                        label="Model"
+                        onChange={handleChange}
+                        value={values.model}
                       />
                     </Grid>
                     <Grid xs={12}>
                       <TextField
-                        sx={{ p: 2 }}
-                        name="model"
-                        placeholder="Model"
+                        color="secondary"
+                        sx={{ mx: 1, mb: 1 }}
+                        name="category"
+                        label="Category"
                         onChange={handleChange}
-                        value={values.model}
+                        value={values.category}
                       />
                       <TextField
-                        sx={{ p: 2 }}
+                        color="secondary"
+                        sx={{ mx: 1, mb: 1 }}
+                        name="subCategory"
+                        label="Sub Category"
+                        onChange={handleChange}
+                        value={values.subCategory}
+                      />
+                    </Grid>
+                    <Grid xs={12}>
+                      <TextField
+                        color="secondary"
+                        sx={{ mx: 1, mb: 1 }}
+                        name="color"
+                        label="Color"
+                        onChange={handleChange}
+                        value={values.color}
+                      />
+
+                      <TextField
+                        color="secondary"
+                        sx={{ mx: 1, mb: 1 }}
                         type="number"
                         InputProps={{ inputProps: { min: 0 } }}
                         name="inventory"
                         onChange={handleChange}
                         value={values.inventory}
-                        placeholder="Inventory"
+                        label="Inventory"
                       />
                     </Grid>
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                       <Button onClick={closeEditProductModal} sx={{ mx: 3 }} color="secondary">
                         Cancel
                       </Button>
-                      <Button type="submit" color="secondary" variant="contained">
+                      <Button disabled={!dirty} type="submit" color="secondary" variant="contained">
                         Save
                       </Button>
                     </Box>

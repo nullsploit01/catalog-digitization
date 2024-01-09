@@ -7,5 +7,7 @@ export interface IProduct {
   color?: string
   brand?: string
   model?: string
+  category?: string
+  subCategory?: string
   inventory?: number
 }
