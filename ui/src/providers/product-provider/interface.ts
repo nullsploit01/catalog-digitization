@@ -1,6 +1,6 @@
-import { ReactNode } from 'react'
-
 import { IProduct } from 'src/models/product'
+
+import { ReactNode } from 'react'
 
 export interface IProductContext {
   products: IProduct[]

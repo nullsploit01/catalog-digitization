@@ -1,8 +1,9 @@
-import { IProductContext, IProductContextProvider } from './interface'
-import { createContext, FC, useRef, useState } from 'react'
-
+import defaultProductImage from 'src/assets/images/default_product_image.png'
 import { IProduct } from 'src/models/product'
 import { generateID } from 'src/utils'
+
+import { IProductContext, IProductContextProvider } from './interface'
+import { createContext, FC, useRef, useState } from 'react'
 
 export const ProductContext = createContext<IProductContext>({} as IProductContext)
 
@@ -17,7 +18,8 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
       product = {
         id: generateID(),
         name: `Product ${productCount.current}`,
-        price: 0
+        price: 0,
+        image: defaultProductImage
       }
     }
     productCount.current += 1

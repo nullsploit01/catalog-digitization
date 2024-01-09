@@ -1,12 +1,11 @@
-import { Delete, Edit } from '@mui/icons-material/'
-import { Box, Button, ButtonGroup, Typography } from '@mui/material'
-import { Fragment } from 'react'
-
-import defaultProductImage from 'src/assets/images/default_product_image.png'
 import CustomCard from 'src/components/molecules/card'
 import { useProducts } from 'src/hooks/products'
 import { IProduct } from 'src/models/product'
 import { getFormattedPrice } from 'src/utils'
+
+import { Delete, Edit } from '@mui/icons-material/'
+import { Box, Button, ButtonGroup, Typography } from '@mui/material'
+import { Fragment } from 'react'
 
 const CatalogProducts = () => {
   const { products, removeProduct, editProduct } = useProducts()
@@ -51,7 +50,7 @@ const CatalogProducts = () => {
           <Box key={index} sx={{ p: 3 }}>
             <CustomCard
               content={renderContent(product)}
-              image={defaultProductImage}
+              image={product.image}
               actions={renderActions(product)}
             />
           </Box>
