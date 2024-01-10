@@ -12,6 +12,7 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
 
   const [_products, setProducts] = useState<IProduct[]>([])
   const [_productToEdit, setProductToEdit] = useState<IProduct | null>(null)
+  const [_showProductImageEditModal, setShowProductImageEditModal] = useState(false)
 
   const addProduct = (product: IProduct | null = null) => {
     if (!product) {
@@ -35,13 +36,22 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
     setProductToEdit(product)
   }
 
-  var updateProduct = (product: IProduct) => {
+  const updateProduct = (product: IProduct) => {
     const products = _products.filter((p) => p.id !== product.id)
     setProducts([product, ...products])
+    setProductToEdit(product)
   }
 
   const closeEditProductModal = () => {
     setProductToEdit(null)
+  }
+
+  const openProductImageEditModal = () => {
+    setShowProductImageEditModal(true)
+  }
+
+  const closeProductImageEditModal = () => {
+    setShowProductImageEditModal(false)
   }
 
   return (
@@ -52,6 +62,9 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
         updateProduct,
         editProduct,
         closeEditProductModal,
+        isProductImageEditModalOpen: _showProductImageEditModal,
+        openProductImageEditModal,
+        closeProductImageEditModal,
         products: _products,
         productToEdit: _productToEdit
       }}

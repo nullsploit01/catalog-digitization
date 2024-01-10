@@ -50,7 +50,7 @@ const CatalogProducts = () => {
           <Box key={index} sx={{ p: 3 }}>
             <CustomCard
               content={renderContent(product)}
-              image={product.image}
+              image={product.image.toString()}
               actions={renderActions(product)}
             />
           </Box>

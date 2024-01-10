@@ -6,6 +6,7 @@ import { FC } from 'react'
 interface IFileUploadButtonProps {
   onUpload?: (files: FileList | null) => void
   multiple?: boolean
+  label?: string
 }
 
 const VisuallyHiddenInput = styled('input')({
@@ -20,10 +21,14 @@ const VisuallyHiddenInput = styled('input')({
   width: 1
 })
 
-const FileUploadButton: FC<IFileUploadButtonProps> = ({ onUpload, multiple }) => {
+const FileUploadButton: FC<IFileUploadButtonProps> = ({
+  onUpload,
+  multiple,
+  label = 'Upload file'
+}) => {
   return (
     <Button component="label" color="secondary" variant="contained" startIcon={<CloudUploadIcon />}>
-      Upload file
+      {label}
       <VisuallyHiddenInput
         onChange={(e) => {
           onUpload?.(e.target.files)

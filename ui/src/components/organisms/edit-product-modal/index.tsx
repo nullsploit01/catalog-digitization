@@ -2,13 +2,15 @@ import CustomModal from 'src/components/molecules/modal'
 import { useProducts } from 'src/hooks/products'
 import { IProduct } from 'src/models/product'
 
+import EditProductImageModal from './components/edit-product-image-modal'
 import { Box, Button, Card, CardMedia, TextField, Tooltip, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { Form, Formik } from 'formik'
 import { Fragment } from 'react'
 
 const EditProductModal = () => {
-  const { productToEdit, closeEditProductModal, updateProduct } = useProducts()
+  const { productToEdit, closeEditProductModal, updateProduct, openProductImageEditModal } =
+    useProducts()
 
   const onSubmit = (product: IProduct) => {
     updateProduct(product)
@@ -19,12 +21,13 @@ const EditProductModal = () => {
     <Fragment>
       {productToEdit && (
         <CustomModal open={Boolean(productToEdit)} handleClose={closeEditProductModal}>
+          <EditProductImageModal />
           <Box flexGrow={1}>
             <Typography mb={2} variant="h5">
               Edit {productToEdit?.name}
             </Typography>
             <Grid container spacing={2}>
-              <Formik initialValues={productToEdit} onSubmit={onSubmit}>
+              <Formik enableReinitialize={true} initialValues={productToEdit} onSubmit={onSubmit}>
                 {({ values, dirty, handleChange }) => (
                   <Form>
                     <Box sx={{ mr: 3, mb: 2, ml: 2 }}>
@@ -40,11 +43,14 @@ const EditProductModal = () => {
                               borderColor: 'gray'
                             }}
                           >
-                            <Card>
+                            <Card onClick={openProductImageEditModal}>
                               <CardMedia sx={{ width: '100%', height: 'auto', display: 'block' }}>
-                                {values.image && (
+                                {productToEdit.image && (
                                   <Tooltip arrow placement="right" title="Edit Image">
-                                    <CardMedia sx={{ height: 140, py: 8 }} image={values.image} />
+                                    <CardMedia
+                                      sx={{ height: 140, py: 8 }}
+                                      image={productToEdit.image.toString()}
+                                    />
                                   </Tooltip>
                                 )}
                               </CardMedia>

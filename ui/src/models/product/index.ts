@@ -3,7 +3,7 @@ export interface IProduct {
   name: string
   price: number
   description?: string
-  image: string
+  image: string | ArrayBuffer
   color?: string
   brand?: string
   model?: string
