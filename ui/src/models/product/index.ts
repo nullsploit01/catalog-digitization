@@ -11,3 +11,8 @@ export interface IProduct {
   subCategory?: string
   inventory?: number
 }
+
+export interface IProductImageColor {
+  name: string
+  color: string
+}

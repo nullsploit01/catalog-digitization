@@ -1,8 +1,9 @@
 import { axiosClient } from 'src/clients/axios'
+import { IProductImageColor } from 'src/models/product'
 
 class ImageService {
   uploadIMages(images: FileList) {
-    return axiosClient.post('/images', images)
+    return axiosClient.post<IProductImageColor[]>('/images', images)
   }
 }
 

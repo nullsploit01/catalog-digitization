@@ -4,6 +4,7 @@ import { useProducts } from 'src/hooks/products'
 import { imageService } from 'src/services/image'
 
 import { Box } from '@mui/material'
+import isEqual from 'lodash/isEqual'
 import { FC, Fragment } from 'react'
 
 const EditProductImageModal: FC = () => {
@@ -21,7 +22,9 @@ const EditProductImageModal: FC = () => {
       imageService.uploadIMages(image).then((response) => {
         const product = {
           ...productToEdit,
-          color: response.data[0].value,
+          color: response.data.find((res) =>
+            Array.from(image).some((i) => isEqual(res.name, i.name))
+          )?.color,
           image: reader.result ?? ''
         }
 
