@@ -7,11 +7,20 @@ import { Add } from '@mui/icons-material/'
 import React from 'react'
 
 const AddProductsMenu: React.FC = () => {
-  const { addProduct } = useProducts()
+  const { addProduct, openBulkUploadImagesModal } = useProducts()
 
   const handleClick = (value: string) => {
-    if (value === Operations.AddProduct) {
-      addProduct()
+    switch (value) {
+      case Operations.AddProduct:
+        addProduct()
+        break
+
+      case Operations.BulkUpload:
+        openBulkUploadImagesModal()
+        break
+
+      default:
+        break
     }
   }
 

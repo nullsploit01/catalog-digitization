@@ -6,6 +6,7 @@ export interface IProductContext {
   products: IProduct[]
   productToEdit: IProduct | null
   isProductImageEditModalOpen: boolean
+  isBulkUploadImagesModalOpen: boolean
   closeEditProductModal: () => void
   editProduct: (product: IProduct) => void
   removeProduct: (product: IProduct) => void
@@ -13,6 +14,8 @@ export interface IProductContext {
   addProduct: (product?: IProduct | null) => void
   closeProductImageEditModal: () => void
   openProductImageEditModal: () => void
+  openBulkUploadImagesModal: () => void
+  closeBulkUploadImagesModal: () => void
 }
 
 export interface IProductContextProvider {
