@@ -1,14 +1,16 @@
+import CustomBackdrop from 'src/components/atoms/backdrop'
 import CustomCard from 'src/components/molecules/card'
 import { useProducts } from 'src/hooks/products'
 import { IProduct } from 'src/models/product'
 import { getFormattedPrice } from 'src/utils'
 
+import CatalogProductSkeleton from './components/catalog-product-skeleton'
 import { Delete, Edit } from '@mui/icons-material/'
 import { Box, ButtonGroup, IconButton, Typography } from '@mui/material'
 import { Fragment } from 'react'
 
 const CatalogProducts = () => {
-  const { products, removeProduct, editProduct } = useProducts()
+  const { products, removeProduct, editProduct, loading } = useProducts()
 
   const renderContent = (product: IProduct) => {
     return (
@@ -45,17 +47,24 @@ const CatalogProducts = () => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
-      {products.map((product, index) => {
-        return (
-          <Box key={index} sx={{ p: 3 }}>
-            <CustomCard
-              content={renderContent(product)}
-              image={product.image.toString()}
-              actions={renderActions(product)}
-            />
-          </Box>
-        )
-      })}
+      {loading && !products.length ? (
+        <CatalogProductSkeleton />
+      ) : (
+        <Fragment>
+          <CustomBackdrop open={loading} />
+          {products.map((product, index) => {
+            return (
+              <Box key={index} sx={{ p: 3 }}>
+                <CustomCard
+                  content={renderContent(product)}
+                  image={product.image?.toString()}
+                  actions={renderActions(product)}
+                />
+              </Box>
+            )
+          })}
+        </Fragment>
+      )}
     </Box>
   )
 }

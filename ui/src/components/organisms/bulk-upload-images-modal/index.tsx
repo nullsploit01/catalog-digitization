@@ -1,10 +1,8 @@
 import FileUploadButton from 'src/components/atoms/buttons/file-upload'
 import CustomModal from 'src/components/molecules/modal'
 import { useProducts } from 'src/hooks/products'
-import { imageService } from 'src/services/image'
 
 import { Box } from '@mui/material'
-import { isEqual } from 'lodash'
 import { FC } from 'react'
 
 const BulkUploadImagesModal: FC = () => {
