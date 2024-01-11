@@ -7,11 +7,14 @@ export interface IProductContext {
   productToEdit: IProduct | null
   isProductImageEditModalOpen: boolean
   isBulkUploadImagesModalOpen: boolean
+  loading: boolean
+  setLoading: (value: boolean) => void
   closeEditProductModal: () => void
   editProduct: (product: IProduct) => void
   removeProduct: (product: IProduct) => void
   updateProduct: (product: IProduct) => void
   addProduct: (product?: IProduct | null) => void
+  bulkUploadProductImages: (images: FileList) => void
   closeProductImageEditModal: () => void
   openProductImageEditModal: () => void
   openBulkUploadImagesModal: () => void

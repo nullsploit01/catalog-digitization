@@ -1,9 +1,9 @@
 export interface IProduct {
-  id: string
-  name: string
-  price: number
+  id?: string
+  name?: string
+  price?: number
   description?: string
-  image: string | ArrayBuffer
+  image?: string | ArrayBuffer
   color?: string
   brand?: string
   model?: string
