@@ -7,4 +7,6 @@ const router = Router()
 
 router.post('/images', upload.any(), controller.uploadImages)
 
+router.post('/audio', controller.processAudio)
+
 export { router }
