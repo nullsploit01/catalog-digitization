@@ -1,6 +1,6 @@
 import defaultProductImage from 'src/assets/images/default_product_image.png'
 import { IProduct } from 'src/models/product'
-import { imageService } from 'src/services/image'
+import { productService } from 'src/services/product'
 import { generateID } from 'src/utils'
 
 import { IProductContext, IProductContextProvider } from './interface'
@@ -56,8 +56,8 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
   const bulkUploadProductImages = (images: FileList) => {
     setLoading(true)
 
-    imageService
-      .uploadIMages(images)
+    productService
+      .uploadProductIMages(images)
       .then((response) => {
         Array.from(images).map((image) => {
           const reader = new FileReader()

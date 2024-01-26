@@ -1,11 +1,7 @@
 import { IControllerMethod } from 'src/interfaces/index'
-import { imageService } from 'src/services/image'
-
-import speech from '@google-cloud/speech'
+import { productService } from 'src/services/product'
 
 class Controller {
-  client = new speech.SpeechClient()
-
   uploadImages: IControllerMethod = async (req, res, next) => {
     try {
       const images = req.files
@@ -13,7 +9,7 @@ class Controller {
         throw new Error()
       }
 
-      const imageColors = await imageService.getImageColor(images)
+      const imageColors = await productService.getProductImageColor(images)
       return res.json(imageColors)
     } catch (error) {
       next(error)
@@ -22,36 +18,15 @@ class Controller {
 
   processAudio: IControllerMethod = async (req, res, next) => {
     try {
-      const gcsUri = 'gs://cloud-samples-data/speech/brooklyn_bridge.raw'
+      const { files } = req
 
-      // The audio file's encoding, sample rate in hertz, and BCP-47 language code
-      const audio = {
-        uri: gcsUri
-      }
-      const config = {
-        encoding: 'LINEAR16' as any,
-        sampleRateHertz: 16000,
-        languageCode: 'en-US'
-      }
-      const request = {
-        audio: audio,
-        config: config
+      if (!files || !Array.isArray(files) || !files.length) {
+        throw new Error()
       }
 
-      // Detects speech in the audio file
-      const [response] = await this.client.recognize(request)
-      // if (response && response.results) {
-      //   const transcription = response.results
-      //     .map((result) => {
-      //       if (result && result.alternatives) {
-      //         result.alternatives[0].transcript
-      //       }
-      //     })
-      //     .join('\n')
-      //   console.log(`Transcription: ${transcription}`)
-      // }
+      const audioTranscript = await productService.getAudioTranscript(files)
 
-      res.json(response.results)
+      return res.json(audioTranscript.results)
     } catch (error) {
       next(error)
     }

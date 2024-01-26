@@ -1,12 +1,14 @@
 import CustomModal from 'src/components/molecules/modal'
 import { useProducts } from 'src/hooks/products'
 import { IProduct } from 'src/models/product'
+import { productService } from 'src/services/product'
 
 import EditProductImageModal from './components/edit-product-image-modal'
 import { Box, Button, Card, CardMedia, TextField, Tooltip, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { Form, Formik } from 'formik'
 import { Fragment } from 'react'
+import { AudioRecorder } from 'react-audio-voice-recorder'
 
 const EditProductModal = () => {
   const { productToEdit, closeEditProductModal, updateProduct, openProductImageEditModal } =
@@ -15,6 +17,12 @@ const EditProductModal = () => {
   const onSubmit = (product: IProduct) => {
     updateProduct(product)
     closeEditProductModal()
+  }
+
+  const addAudioElement = (blob: Blob) => {
+    const data = new FormData()
+    data.append('file', blob)
+    productService.uploadVoiceInput(data)
   }
 
   return (
@@ -167,6 +175,13 @@ const EditProductModal = () => {
                       <Button disabled={!dirty} type="submit" color="secondary" variant="contained">
                         Save
                       </Button>
+                      <AudioRecorder
+                        onRecordingComplete={addAudioElement}
+                        audioTrackConstraints={{
+                          noiseSuppression: true,
+                          echoCancellation: true
+                        }}
+                      />
                     </Box>
                   </Form>
                 )}

@@ -1,7 +1,7 @@
 import FileUploadButton from 'src/components/atoms/buttons/file-upload'
 import CustomModal from 'src/components/molecules/modal'
 import { useProducts } from 'src/hooks/products'
-import { imageService } from 'src/services/image'
+import { productService } from 'src/services/product'
 
 import { Box } from '@mui/material'
 import isEqual from 'lodash/isEqual'
@@ -19,7 +19,7 @@ const EditProductImageModal: FC = () => {
     const reader = new FileReader()
 
     reader.onload = () => {
-      imageService.uploadIMages(image).then((response) => {
+      productService.uploadProductIMages(image).then((response) => {
         const product = {
           ...productToEdit,
           color: response.data.find((res) =>
