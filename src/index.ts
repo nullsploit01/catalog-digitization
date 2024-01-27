@@ -6,7 +6,7 @@ import express from 'express'
 
 const server = express()
 
-server.use(cors())
+server.use(cors({ origin: environment.ALLOWED_ORIGIN }))
 server.use(express.json())
 
 server.use(router)
