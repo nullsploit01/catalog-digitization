@@ -1,12 +1,8 @@
 import { IProductImageColor } from 'src/models/product'
 
-import speech from '@google-cloud/speech'
-import fs from 'fs/promises'
 import getColors from 'get-image-colors'
 
 class ProductService {
-  private client = new speech.SpeechClient()
-
   getProductImageColor = async (images: Express.Multer.File[]) => {
     let imageColors: IProductImageColor[] = []
 
@@ -16,18 +12,6 @@ class ProductService {
     }
 
     return imageColors
-  }
-
-  getAudioTranscript = async (audio: Express.Multer.File[]) => {
-    const fileread = await fs.readFile(audio[0].path, { encoding: 'base64' })
-
-    const config = {
-      encoding: 'WEBM_OPUS' as any,
-      languageCode: 'en-US'
-    }
-
-    const [response] = await this.client.recognize({ audio: { content: fileread }, config })
-    return response
   }
 }
 

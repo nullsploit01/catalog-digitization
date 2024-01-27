@@ -1,32 +1,32 @@
-import { axiosClient } from 'src/clients/axios'
-import { environment } from 'src/config/environment'
-
-import FormData from 'form-data'
-import fs from 'fs/promises'
+import fs from 'fs'
+import OpenAI, { toFile } from 'openai'
 
 class OpenAiClient {
-  private httpClient
-
-  constructor() {
-    this.httpClient = axiosClient('https://api.openai.com/v1', {
-      Authorization: `Bearer ${environment.OPENAI_API_KEY}`
-    })
-  }
+  private openAIInstance = new OpenAI()
 
   whisper = async (audioFile: Express.Multer.File) => {
-    const formData = new FormData()
-    const filedata = await fs.readFile(audioFile.path)
+    const audioFileData = await toFile(fs.createReadStream(audioFile.path))
 
-    formData.append('file', filedata, {
-      filename: 'audio.mp3',
-      contentType: audioFile.mimetype
+    const response = await this.openAIInstance.audio.transcriptions.create({
+      file: audioFileData,
+      model: 'whisper-1'
     })
 
-    formData.append('model', 'whisper-1')
-    formData.append('response_format', 'json')
+    return response.text
+  }
 
-    const response = await this.httpClient.post('/audio/transcriptions', formData)
-    return response.data.text
+  chatCompletions = async (message: string) => {
+    const completions = await this.openAIInstance.chat.completions.create({
+      messages: [
+        {
+          role: 'system',
+          content: message
+        }
+      ],
+      model: 'gpt-3.5-turbo'
+    })
+
+    return completions.choices[0].message
   }
 }
 

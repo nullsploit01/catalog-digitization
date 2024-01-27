@@ -7,8 +7,9 @@ const storage = multer.diskStorage({
     cb(null, '/tmp')
   },
   filename: (req, file, cb) => {
-    const uniqueSuffix =
-      Date.now() + '-' + Math.round(Math.random() * 1e9) + '.' + mime.extension(file.mimetype)
+    const extension =
+      mime.extension(file.mimetype) === 'weba' ? 'mp3' : mime.extension(file.mimetype)
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9) + '.' + extension
     cb(null, uniqueSuffix)
   }
 })
