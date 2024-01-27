@@ -5,6 +5,10 @@ const envFilePath = `.env.${nodeEnv}`
 
 dotenv.config({ path: envFilePath })
 
+if (!process.env.OPENAI_API_KEY) {
+  throw new Error('Open AI Key is not defined')
+}
+
 export const environment = {
   port: process.env.PORT || 8080,
   OPENAI_API_KEY: process.env.OPENAI_API_KEY
