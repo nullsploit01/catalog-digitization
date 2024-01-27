@@ -1,3 +1,4 @@
+import { openAiClient } from 'src/clients/openai'
 import { IProductImageColor } from 'src/models/product'
 
 import getColors from 'get-image-colors'
@@ -12,6 +13,18 @@ class ProductService {
     }
 
     return imageColors
+  }
+
+  extractProductInformation = async (audioFile: Express.Multer.File) => {
+    const transcript = await openAiClient.whisper(audioFile)
+    const message = `Create a json object interface { name?: string price?: number description?: string image?: string | ArrayBuffer color?: string brand?: string model?: string category?: string subCategory?: string inventory?: number } of the transcript: ${transcript}`
+    const response = await openAiClient.chatCompletions(message)
+
+    if (!response || !response.content) {
+      return null
+    }
+
+    return JSON.parse(response.content)
   }
 }
 

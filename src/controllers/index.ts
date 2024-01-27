@@ -1,4 +1,3 @@
-import { openAiClient } from 'src/clients/openai'
 import { IControllerMethod } from 'src/interfaces/index'
 import { productService } from 'src/services/product'
 
@@ -25,8 +24,11 @@ class Controller {
         throw new Error()
       }
 
-      const transcription = await openAiClient.whisper(files[0])
-      res.json({ transcription })
+      let product = await productService.extractProductInformation(files[0])
+      if (!product) {
+        product = ''
+      }
+      res.json({ product: JSON.parse(product) })
     } catch (error) {
       console.log(JSON.stringify(error))
       next(error)
