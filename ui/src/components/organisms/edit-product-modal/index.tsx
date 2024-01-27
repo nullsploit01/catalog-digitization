@@ -1,3 +1,4 @@
+import CustomLinear from 'src/components/atoms/linear'
 import CustomModal from 'src/components/molecules/modal'
 import { useProducts } from 'src/hooks/products'
 import { IProduct } from 'src/models/product'
@@ -11,7 +12,6 @@ import {
   Card,
   CardMedia,
   IconButton,
-  LinearProgress,
   TextField,
   Tooltip,
   Typography
@@ -20,7 +20,7 @@ import Grid from '@mui/material/Unstable_Grid2'
 import clsx from 'clsx'
 import { Form, Formik } from 'formik'
 import { Fragment, useEffect, useState } from 'react'
-import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder'
+import { useAudioRecorder } from 'react-audio-voice-recorder'
 
 const EditProductModal = () => {
   const { productToEdit, closeEditProductModal, updateProduct, openProductImageEditModal } =
@@ -37,9 +37,15 @@ const EditProductModal = () => {
     }
   }, [productToEdit])
 
-  const onSubmit = (product: IProduct) => {
-    updateProduct(product)
+  const closeModal = () => {
+    setShowLinear(false)
+    stopRecording()
     closeEditProductModal()
+  }
+
+  const onSave = (product: IProduct) => {
+    updateProduct(product)
+    closeModal()
   }
 
   const handleAudioClick = () => {
@@ -55,8 +61,8 @@ const EditProductModal = () => {
   const processRecordedAudio = async () => {
     try {
       if (!recordingBlob) return
-      setShowLinear(true)
 
+      setShowLinear(true)
       const formData = new FormData()
       formData.append('file', recordingBlob)
 
@@ -74,7 +80,7 @@ const EditProductModal = () => {
   return (
     <Fragment>
       {productToEdit && (
-        <CustomModal open={Boolean(productToEdit)} handleClose={closeEditProductModal}>
+        <CustomModal open={Boolean(productToEdit)} handleClose={closeModal}>
           <EditProductImageModal />
           <Box p={4} flexGrow={1}>
             <Box
@@ -86,13 +92,15 @@ const EditProductModal = () => {
               }}
             >
               <Typography variant="h5">Edit {_productState?.name}</Typography>
-              <IconButton onClick={handleAudioClick} className={clsx({ ripple: isRecording })}>
-                <KeyboardVoice fontSize="large" color="secondary" />
-              </IconButton>
+              <Tooltip arrow placement="right" title="Voice Input">
+                <IconButton className={clsx({ ripple: isRecording })} onClick={handleAudioClick}>
+                  <KeyboardVoice fontSize="large" color="secondary" />
+                </IconButton>
+              </Tooltip>
             </Box>
 
             <Grid container spacing={2}>
-              <Formik enableReinitialize={true} initialValues={_productState} onSubmit={onSubmit}>
+              <Formik enableReinitialize={true} initialValues={_productState} onSubmit={onSave}>
                 {({ values, handleChange }) => (
                   <Form>
                     <Box sx={{ mr: 3, mb: 2, ml: 2 }}>
@@ -251,11 +259,7 @@ const EditProductModal = () => {
               </Formik>
             </Grid>
           </Box>
-          {_showLinear && (
-            <Box sx={{ width: '100%' }}>
-              <LinearProgress />
-            </Box>
-          )}
+          <CustomLinear show={_showLinear} />
         </CustomModal>
       )}
     </Fragment>
