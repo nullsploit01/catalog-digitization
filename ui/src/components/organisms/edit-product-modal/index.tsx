@@ -83,7 +83,7 @@ const EditProductModal = () => {
                                 {productToEdit.image && (
                                   <Tooltip arrow placement="right" title="Edit Image">
                                     <CardMedia
-                                      sx={{ height: 140, py: 8 }}
+                                      sx={{ py: 8 }}
                                       image={productToEdit.image.toString()}
                                     />
                                   </Tooltip>
