@@ -1,9 +1,10 @@
-import AddProductsMenu from 'src/components/organisms/add-products-menu'
-import CatalogProducts from 'src/components/organisms/catalog-products'
-import EditProductModal from 'src/components/organisms/edit-product-modal'
-
-import BulkUploadImagesModal from './components/organisms/bulk-upload-images-modal'
 import { Box, Typography } from '@mui/material'
+import { lazy } from 'react'
+
+const AddProductsMenu = lazy(() => import('src/components/organisms/add-products-menu'))
+const CatalogProducts = lazy(() => import('src/components/organisms/catalog-products'))
+const EditProductModal = lazy(() => import('src/components/organisms/edit-product-modal'))
+const BulkUploadImagesModal = lazy(() => import('./components/organisms/bulk-upload-images-modal'))
 
 const App = () => {
   return (
