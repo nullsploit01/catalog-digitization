@@ -1,13 +1,13 @@
 import { axiosClient } from 'src/clients/axios'
-import { IProductImageColor } from 'src/models/product'
+import { IProduct, IProductImageColor } from 'src/models/product'
 
 class ProductService {
-  uploadProductIMages(images: FileList) {
+  uploadProductImages = async (images: FileList) => {
     return axiosClient.post<IProductImageColor[]>('/images', images)
   }
 
-  uploadVoiceInput(audio: any) {
-    return axiosClient.post('/audio', audio)
+  uploadVoiceInput = async (audio: any) => {
+    return axiosClient.post<IProduct>('/audio', audio)
   }
 }
 

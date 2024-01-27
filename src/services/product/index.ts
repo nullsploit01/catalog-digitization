@@ -17,7 +17,19 @@ class ProductService {
 
   extractProductInformation = async (audioFile: Express.Multer.File) => {
     const transcript = await openAiClient.whisper(audioFile)
-    const message = `Create a json object interface { name?: string price?: number description?: string image?: string | ArrayBuffer color?: string brand?: string model?: string category?: string subCategory?: string inventory?: number } of the transcript: ${transcript}`
+
+    const message = `Create a json object interface { 
+                      name?: string 
+                      price?: number 
+                      description?: string 
+                      image?: string | ArrayBuffer 
+                      color?: 
+                      string brand?: string 
+                      model?: string 
+                      category?: string 
+                      subCategory?: string 
+                      inventory?: number } for the transcript: ${transcript} only for keys provided in transcript`
+
     const response = await openAiClient.chatCompletions(message)
 
     if (!response || !response.content) {

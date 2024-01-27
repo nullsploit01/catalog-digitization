@@ -57,7 +57,7 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
     setLoading(true)
 
     productService
-      .uploadProductIMages(images)
+      .uploadProductImages(images)
       .then((response) => {
         Array.from(images).map((image) => {
           const reader = new FileReader()

@@ -19,7 +19,7 @@ const EditProductImageModal: FC = () => {
     const reader = new FileReader()
 
     reader.onload = () => {
-      productService.uploadProductIMages(image).then((response) => {
+      productService.uploadProductImages(image).then((response) => {
         const product = {
           ...productToEdit,
           color: response.data.find((res) =>

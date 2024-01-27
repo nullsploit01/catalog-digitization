@@ -24,13 +24,9 @@ class Controller {
         throw new Error()
       }
 
-      let product = await productService.extractProductInformation(files[0])
-      if (!product) {
-        product = ''
-      }
-      res.json({ product: JSON.parse(product) })
+      const product = await productService.extractProductInformation(files[0])
+      res.json(product)
     } catch (error) {
-      console.log(JSON.stringify(error))
       next(error)
     }
   }

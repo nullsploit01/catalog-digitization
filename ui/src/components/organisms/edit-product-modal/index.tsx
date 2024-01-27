@@ -7,22 +7,31 @@ import EditProductImageModal from './components/edit-product-image-modal'
 import { Box, Button, Card, CardMedia, TextField, Tooltip, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { Form, Formik } from 'formik'
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { AudioRecorder } from 'react-audio-voice-recorder'
 
 const EditProductModal = () => {
   const { productToEdit, closeEditProductModal, updateProduct, openProductImageEditModal } =
     useProducts()
 
+  const [_productState, setProductState] = useState<IProduct>({} as IProduct)
+
+  useEffect(() => {
+    if (productToEdit) {
+      setProductState(productToEdit)
+    }
+  }, [productToEdit])
+
   const onSubmit = (product: IProduct) => {
     updateProduct(product)
     closeEditProductModal()
   }
 
-  const addAudioElement = (blob: Blob) => {
-    const data = new FormData()
-    data.append('file', blob)
-    productService.uploadVoiceInput(data)
+  const addAudioElement = async (blob: Blob) => {
+    const formData = new FormData()
+    formData.append('file', blob)
+    const { data } = await productService.uploadVoiceInput(formData)
+    setProductState({ ...productToEdit, ...data })
   }
 
   return (
@@ -32,11 +41,11 @@ const EditProductModal = () => {
           <EditProductImageModal />
           <Box flexGrow={1}>
             <Typography mb={2} variant="h5">
-              Edit {productToEdit?.name}
+              Edit {_productState?.name}
             </Typography>
             <Grid container spacing={2}>
-              <Formik enableReinitialize={true} initialValues={productToEdit} onSubmit={onSubmit}>
-                {({ values, dirty, handleChange }) => (
+              <Formik enableReinitialize={true} initialValues={_productState} onSubmit={onSubmit}>
+                {({ values, handleChange }) => (
                   <Form>
                     <Box sx={{ mr: 3, mb: 2, ml: 2 }}>
                       <Grid container spacing={2}>
@@ -75,6 +84,7 @@ const EditProductModal = () => {
                             }}
                           >
                             <TextField
+                              InputLabelProps={{ shrink: Boolean(values.name) }}
                               fullWidth
                               color="secondary"
                               sx={{ mx: 1, mb: 2 }}
@@ -84,6 +94,9 @@ const EditProductModal = () => {
                               label="Name"
                             />
                             <TextField
+                              InputLabelProps={{
+                                shrink: Boolean(values.price !== undefined && values.price !== null)
+                              }}
                               fullWidth
                               color="secondary"
                               sx={{ mx: 1, mb: 2 }}
@@ -101,6 +114,7 @@ const EditProductModal = () => {
                     <Grid xs={12}>
                       <Box sx={{ maxWidth: 'inherit', mx: 1, mb: 1 }}>
                         <TextField
+                          InputLabelProps={{ shrink: Boolean(values.description) }}
                           color="secondary"
                           fullWidth
                           multiline
@@ -113,6 +127,7 @@ const EditProductModal = () => {
                     </Grid>
                     <Grid xs={12}>
                       <TextField
+                        InputLabelProps={{ shrink: Boolean(values.brand) }}
                         color="secondary"
                         sx={{ mx: 1, mb: 1 }}
                         name="brand"
@@ -121,6 +136,7 @@ const EditProductModal = () => {
                         value={values.brand}
                       />
                       <TextField
+                        InputLabelProps={{ shrink: Boolean(values.model) }}
                         color="secondary"
                         sx={{ mx: 1, mb: 1 }}
                         name="model"
@@ -131,6 +147,7 @@ const EditProductModal = () => {
                     </Grid>
                     <Grid xs={12}>
                       <TextField
+                        InputLabelProps={{ shrink: Boolean(values.category) }}
                         color="secondary"
                         sx={{ mx: 1, mb: 1 }}
                         name="category"
@@ -139,6 +156,7 @@ const EditProductModal = () => {
                         value={values.category}
                       />
                       <TextField
+                        InputLabelProps={{ shrink: Boolean(values.subCategory) }}
                         color="secondary"
                         sx={{ mx: 1, mb: 1 }}
                         name="subCategory"
@@ -149,6 +167,7 @@ const EditProductModal = () => {
                     </Grid>
                     <Grid xs={12}>
                       <TextField
+                        InputLabelProps={{ shrink: Boolean(values.color) }}
                         color="secondary"
                         sx={{ mx: 1, mb: 1 }}
                         name="color"
@@ -158,6 +177,7 @@ const EditProductModal = () => {
                       />
 
                       <TextField
+                        InputLabelProps={{ shrink: Boolean(values.inventory) }}
                         color="secondary"
                         sx={{ mx: 1, mb: 1 }}
                         type="number"
@@ -172,7 +192,7 @@ const EditProductModal = () => {
                       <Button onClick={closeEditProductModal} sx={{ mx: 3 }} color="secondary">
                         Cancel
                       </Button>
-                      <Button disabled={!dirty} type="submit" color="secondary" variant="contained">
+                      <Button type="submit" color="secondary" variant="contained">
                         Save
                       </Button>
                       <AudioRecorder
