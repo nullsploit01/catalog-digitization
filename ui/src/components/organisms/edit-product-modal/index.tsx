@@ -4,7 +4,16 @@ import { IProduct } from 'src/models/product'
 import { productService } from 'src/services/product'
 
 import EditProductImageModal from './components/edit-product-image-modal'
-import { Box, Button, Card, CardMedia, TextField, Tooltip, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  Card,
+  CardMedia,
+  LinearProgress,
+  TextField,
+  Tooltip,
+  Typography
+} from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import { Form, Formik } from 'formik'
 import { Fragment, useEffect, useState } from 'react'
@@ -15,6 +24,7 @@ const EditProductModal = () => {
     useProducts()
 
   const [_productState, setProductState] = useState<IProduct>({} as IProduct)
+  const [_showLinear, setShowLinear] = useState(false)
 
   useEffect(() => {
     if (productToEdit) {
@@ -28,10 +38,18 @@ const EditProductModal = () => {
   }
 
   const addAudioElement = async (blob: Blob) => {
-    const formData = new FormData()
-    formData.append('file', blob)
-    const { data } = await productService.uploadVoiceInput(formData)
-    setProductState({ ...productToEdit, ...data })
+    try {
+      setShowLinear(true)
+      const formData = new FormData()
+      formData.append('file', blob)
+      const { data } = await productService.uploadVoiceInput(formData)
+      setShowLinear(false)
+      setProductState({ ...productToEdit, ...data })
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setShowLinear(false)
+    }
   }
 
   return (
@@ -39,7 +57,7 @@ const EditProductModal = () => {
       {productToEdit && (
         <CustomModal open={Boolean(productToEdit)} handleClose={closeEditProductModal}>
           <EditProductImageModal />
-          <Box flexGrow={1}>
+          <Box p={4} flexGrow={1}>
             <Typography mb={2} variant="h5">
               Edit {_productState?.name}
             </Typography>
@@ -208,6 +226,11 @@ const EditProductModal = () => {
               </Formik>
             </Grid>
           </Box>
+          {_showLinear && (
+            <Box sx={{ width: '100%' }}>
+              <LinearProgress />
+            </Box>
+          )}
         </CustomModal>
       )}
     </Fragment>

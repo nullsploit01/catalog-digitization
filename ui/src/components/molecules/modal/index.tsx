@@ -11,8 +11,7 @@ const style = {
   width: 'auto',
   bgcolor: 'background.paper',
   borderRadius: 3,
-  boxShadow: 24,
-  p: 4
+  boxShadow: 24
 }
 
 const CustomModal: FC<ICustomModalProps> = ({ open, handleClose, children }) => {
