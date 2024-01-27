@@ -22,9 +22,8 @@ class ProductService {
                       name?: string 
                       price?: number 
                       description?: string 
-                      image?: string | ArrayBuffer 
-                      color?: 
-                      string brand?: string 
+                      color?: string
+                      brand?: string 
                       model?: string 
                       category?: string 
                       subCategory?: string 

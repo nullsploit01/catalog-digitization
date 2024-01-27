@@ -4,24 +4,29 @@ import { IProduct } from 'src/models/product'
 import { productService } from 'src/services/product'
 
 import EditProductImageModal from './components/edit-product-image-modal'
+import { KeyboardVoice } from '@mui/icons-material'
 import {
   Box,
   Button,
   Card,
   CardMedia,
+  IconButton,
   LinearProgress,
   TextField,
   Tooltip,
   Typography
 } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
+import clsx from 'clsx'
 import { Form, Formik } from 'formik'
 import { Fragment, useEffect, useState } from 'react'
-import { AudioRecorder } from 'react-audio-voice-recorder'
+import { AudioRecorder, useAudioRecorder } from 'react-audio-voice-recorder'
 
 const EditProductModal = () => {
   const { productToEdit, closeEditProductModal, updateProduct, openProductImageEditModal } =
     useProducts()
+
+  const { startRecording, stopRecording, recordingBlob, isRecording } = useAudioRecorder()
 
   const [_productState, setProductState] = useState<IProduct>({} as IProduct)
   const [_showLinear, setShowLinear] = useState(false)
@@ -37,18 +42,32 @@ const EditProductModal = () => {
     closeEditProductModal()
   }
 
-  const addAudioElement = async (blob: Blob) => {
+  const handleAudioClick = () => {
+    if (!isRecording) {
+      startRecording()
+      return
+    }
+
+    stopRecording()
+    processRecordedAudio()
+  }
+
+  const processRecordedAudio = async () => {
     try {
+      if (!recordingBlob) return
       setShowLinear(true)
+
       const formData = new FormData()
-      formData.append('file', blob)
-      const { data } = await productService.uploadVoiceInput(formData)
-      setShowLinear(false)
-      setProductState({ ...productToEdit, ...data })
+      formData.append('file', recordingBlob)
+
+      productService
+        .uploadVoiceInput(formData)
+        .then(({ data }) => {
+          setProductState({ ...productToEdit, ...data })
+        })
+        .finally(() => setShowLinear(false))
     } catch (error) {
       console.log(error)
-    } finally {
-      setShowLinear(false)
     }
   }
 
@@ -58,9 +77,20 @@ const EditProductModal = () => {
         <CustomModal open={Boolean(productToEdit)} handleClose={closeEditProductModal}>
           <EditProductImageModal />
           <Box p={4} flexGrow={1}>
-            <Typography mb={2} variant="h5">
-              Edit {_productState?.name}
-            </Typography>
+            <Box
+              sx={{
+                mb: 4,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+              }}
+            >
+              <Typography variant="h5">Edit {_productState?.name}</Typography>
+              <IconButton onClick={handleAudioClick} className={clsx({ ripple: isRecording })}>
+                <KeyboardVoice fontSize="large" color="secondary" />
+              </IconButton>
+            </Box>
+
             <Grid container spacing={2}>
               <Formik enableReinitialize={true} initialValues={_productState} onSubmit={onSubmit}>
                 {({ values, handleChange }) => (
@@ -195,7 +225,9 @@ const EditProductModal = () => {
                       />
 
                       <TextField
-                        InputLabelProps={{ shrink: Boolean(values.inventory) }}
+                        InputLabelProps={{
+                          shrink: Boolean(values.inventory !== undefined && values.price !== null)
+                        }}
                         color="secondary"
                         sx={{ mx: 1, mb: 1 }}
                         type="number"
@@ -213,13 +245,6 @@ const EditProductModal = () => {
                       <Button type="submit" color="secondary" variant="contained">
                         Save
                       </Button>
-                      <AudioRecorder
-                        onRecordingComplete={addAudioElement}
-                        audioTrackConstraints={{
-                          noiseSuppression: true,
-                          echoCancellation: true
-                        }}
-                      />
                     </Box>
                   </Form>
                 )}
