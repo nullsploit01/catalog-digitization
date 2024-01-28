@@ -247,7 +247,7 @@ const EditProductModal = () => {
                       />
                     </Grid>
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                      <Button onClick={closeEditProductModal} sx={{ mx: 3 }} color="secondary">
+                      <Button onClick={closeModal} sx={{ mx: 3 }} color="secondary">
                         Cancel
                       </Button>
                       <Button type="submit" color="secondary" variant="contained">
