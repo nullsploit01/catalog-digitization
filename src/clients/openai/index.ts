@@ -18,14 +18,12 @@ class OpenAiClient {
   chatCompletions = async (message: string) => {
     const completions = await this.openAIInstance.chat.completions.create({
       messages: [
-        { role: 'system', content: 'You are a deterministic AI assistant.' },
         {
           role: 'user',
           content: message
         }
       ],
-      model: 'gpt-3.5-turbo',
-      top_p: 0.00000000000000000001
+      model: 'gpt-3.5-turbo'
     })
 
     return completions.choices[0].message

@@ -37,6 +37,11 @@ const EditProductModal = () => {
     }
   }, [productToEdit])
 
+  useEffect(() => {
+    if (!recordingBlob || !productToEdit) return
+    processRecordedAudio()
+  }, [recordingBlob])
+
   const closeModal = () => {
     setShowLinear(false)
     stopRecording()
@@ -53,8 +58,8 @@ const EditProductModal = () => {
       startRecording()
       return
     }
+
     stopRecording()
-    processRecordedAudio()
   }
 
   const processRecordedAudio = async () => {
