@@ -1,6 +1,7 @@
+import { logger } from '../logger'
+import fs from 'fs'
 import mime from 'mime-types'
 import multer from 'multer'
-import path from 'path'
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -14,4 +15,14 @@ const storage = multer.diskStorage({
   }
 })
 
-export const upload = multer({ storage })
+export const uploadFile = multer({ storage })
+
+export const removeFiles = (files: Express.Multer.File[]) => {
+  files.map(({ path }) => {
+    fs.unlink(path, (err) => {
+      if (err) {
+        logger.error(`Error deleting file: ${err}`)
+      }
+    })
+  })
+}

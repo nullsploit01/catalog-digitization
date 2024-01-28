@@ -1,4 +1,5 @@
 import { openAiClient } from 'src/clients/openai'
+import { BadRequestError } from 'src/errors/bad-request'
 import { IProductImageColor } from 'src/models/product'
 
 import getColors from 'get-image-colors'
@@ -35,7 +36,11 @@ class ProductService {
       return null
     }
 
-    return JSON.parse(response.content)
+    try {
+      return JSON.parse(response.content)
+    } catch (err) {
+      throw new BadRequestError('Something went wrong while processing audio, please try again')
+    }
   }
 }
 

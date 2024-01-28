@@ -1,3 +1,4 @@
+import { removeFiles } from 'src/config/multer'
 import { BadRequestError } from 'src/errors/bad-request'
 import { IControllerMethod } from 'src/interfaces/index'
 import { productService } from 'src/services/product'
@@ -11,6 +12,7 @@ class Controller {
       }
 
       const imageColors = await productService.getProductImageColor(images)
+      removeFiles(images)
       return res.json(imageColors)
     } catch (error) {
       next(error)
@@ -26,7 +28,8 @@ class Controller {
       }
 
       const product = await productService.extractProductInformation(files[0])
-      res.json(product)
+      removeFiles(files)
+      return res.json(product)
     } catch (error) {
       next(error)
     }
