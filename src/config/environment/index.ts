@@ -10,7 +10,8 @@ if (!process.env.OPENAI_API_KEY) {
 }
 
 export const environment = {
-  port: process.env.PORT || 8080,
+  PORT: process.env.PORT || 8080,
   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
-  ALLOWED_ORIGIN: process.env.ALLOWED_ORIGIN
+  ALLOWED_ORIGIN: process.env.ALLOWED_ORIGIN,
+  NODE_ENV: process.env.NODE_ENV
 }

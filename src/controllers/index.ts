@@ -1,3 +1,4 @@
+import { BadRequestError } from 'src/errors/bad-request'
 import { IControllerMethod } from 'src/interfaces/index'
 import { productService } from 'src/services/product'
 
@@ -6,7 +7,7 @@ class Controller {
     try {
       const images = req.files
       if (!images || !Array.isArray(images)) {
-        throw new Error()
+        throw new BadRequestError('Images not provided')
       }
 
       const imageColors = await productService.getProductImageColor(images)
@@ -21,7 +22,7 @@ class Controller {
       const { files } = req
 
       if (!files || !Array.isArray(files) || !files.length) {
-        throw new Error()
+        throw new BadRequestError('Audio not provided')
       }
 
       const product = await productService.extractProductInformation(files[0])
