@@ -23,7 +23,8 @@ class OpenAiClient {
           content: message
         }
       ],
-      model: 'gpt-3.5-turbo'
+      model: 'gpt-3.5-turbo',
+      top_p: 0.0000000000001
     })
 
     return completions.choices[0].message

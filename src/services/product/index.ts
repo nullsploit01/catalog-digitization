@@ -28,7 +28,7 @@ class ProductService {
                       model?: string 
                       category?: string 
                       subCategory?: string 
-                      inventory?: number } for the transcript: ${transcript}`
+                      inventory?: number } for the transcript: ${transcript} only add values for keys in transcript`
 
     const response = await openAiClient.chatCompletions(message)
 
