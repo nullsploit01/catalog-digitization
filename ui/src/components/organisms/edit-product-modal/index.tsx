@@ -53,7 +53,6 @@ const EditProductModal = () => {
       startRecording()
       return
     }
-
     stopRecording()
     processRecordedAudio()
   }
