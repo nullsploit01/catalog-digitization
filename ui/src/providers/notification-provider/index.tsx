@@ -7,7 +7,7 @@ import { createContext, FC, useState } from 'react'
 export const NotificationContext = createContext({} as INotificationContext)
 
 export const NotificationContextProvider: FC<INotificationContextProvider> = ({ children }) => {
-  const [_notification, setNotification] = useState({ variant: 'info' } as INotification)
+  const [_notification, setNotification] = useState({} as INotification)
 
   const showNotification = (message: string, variant: AlertColor = 'info') => {
     setNotification({ message, variant, show: true })
