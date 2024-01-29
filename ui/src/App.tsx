@@ -1,5 +1,6 @@
+import { useNotification } from './hooks/notification'
 import { Box, Typography } from '@mui/material'
-import { lazy } from 'react'
+import { lazy, useEffect } from 'react'
 
 const AddProductsMenu = lazy(() => import('src/components/organisms/add-products-menu'))
 const CatalogProducts = lazy(() => import('src/components/organisms/catalog-products'))
@@ -7,6 +8,10 @@ const EditProductModal = lazy(() => import('src/components/organisms/edit-produc
 const BulkUploadImagesModal = lazy(() => import('./components/organisms/bulk-upload-images-modal'))
 
 const App = () => {
+  const { showNotification } = useNotification()
+  useEffect(() => {
+    showNotification('test')
+  }, [])
   return (
     <Box sx={{ height: '100vh' }}>
       <Box sx={{ p: 3 }}>
