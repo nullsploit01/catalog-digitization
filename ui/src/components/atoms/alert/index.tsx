@@ -15,7 +15,7 @@ const CustomAlert: FC<ICustomAlertProps> = ({ variant = 'info', message, open, o
         <Snackbar
           anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
           open={open}
-          autoHideDuration={6000}
+          autoHideDuration={3500}
           onClose={onClose}
         >
           <Alert severity={variant} onClose={onClose}>

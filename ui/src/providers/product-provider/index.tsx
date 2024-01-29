@@ -1,4 +1,5 @@
 import defaultProductImage from 'src/assets/images/default_product_image.png'
+import { useNotification } from 'src/hooks/notification'
 import { IProduct } from 'src/models/product'
 import { productService } from 'src/services/product'
 import { generateID } from 'src/utils'
@@ -10,6 +11,8 @@ import { createContext, FC, useRef, useState } from 'react'
 export const ProductContext = createContext<IProductContext>({} as IProductContext)
 
 export const ProductContextProvider: FC<IProductContextProvider> = ({ children }) => {
+  const { showNotification } = useNotification()
+
   const productCount = useRef(1)
 
   const [_loading, setLoading] = useState(false)
@@ -41,6 +44,7 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
   const removeProduct = (product: IProduct) => {
     const products = _products.filter((p) => p.id !== product.id)
     setProducts(products)
+    showNotification(`Product ${product.name} Removed`, 'success')
   }
 
   const editProduct = (product: IProduct) => {
@@ -51,6 +55,7 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
     const products = _products.filter((p) => p.id !== product.id)
     setProducts([product, ...products])
     setProductToEdit(product)
+    showNotification('Updated Product', 'success')
   }
 
   const bulkUploadProductImages = (images: FileList) => {
@@ -71,6 +76,7 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
           }
         })
       })
+      .then(() => showNotification('Products Added Successfully', 'success'))
       .finally(() => setLoading(false))
   }
 
