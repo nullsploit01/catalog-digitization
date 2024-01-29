@@ -1,5 +1,8 @@
+import { useProducts } from 'src/hooks/products'
+
+import CustomBackdrop from './components/atoms/backdrop'
 import { Box, Typography } from '@mui/material'
-import { lazy } from 'react'
+import { lazy, Suspense } from 'react'
 
 const AddProductsMenu = lazy(() => import('src/components/organisms/add-products-menu'))
 const CatalogProducts = lazy(() => import('src/components/organisms/catalog-products'))
@@ -7,13 +10,17 @@ const EditProductModal = lazy(() => import('src/components/organisms/edit-produc
 const BulkUploadImagesModal = lazy(() => import('./components/organisms/bulk-upload-images-modal'))
 
 const App = () => {
+  const { products } = useProducts()
+
   return (
     <Box sx={{ height: '100vh' }}>
       <Box sx={{ p: 3 }}>
         <Typography variant="h4">Catalog Digitization</Typography>
       </Box>
       <Box sx={{ height: '80%', overflow: 'auto' }}>
-        <CatalogProducts />
+        <Suspense fallback={<CustomBackdrop open />}>
+          <CatalogProducts />
+        </Suspense>
       </Box>
       <Box
         sx={{
@@ -22,9 +29,15 @@ const App = () => {
           px: 5
         }}
       >
-        <AddProductsMenu />
-        <EditProductModal />
-        <BulkUploadImagesModal />
+        <Suspense fallback={<CustomBackdrop open />}>
+          {products.length !== 0 && <AddProductsMenu />}
+        </Suspense>
+        <Suspense fallback={<CustomBackdrop open />}>
+          <EditProductModal />
+        </Suspense>
+        <Suspense fallback={<CustomBackdrop open />}>
+          <BulkUploadImagesModal />
+        </Suspense>
       </Box>
     </Box>
   )

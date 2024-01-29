@@ -1,5 +1,6 @@
 import CustomBackdrop from 'src/components/atoms/backdrop'
 import CustomCard from 'src/components/molecules/card'
+import NoProducts from 'src/components/organisms/no-products'
 import { useProducts } from 'src/hooks/products'
 import { IProduct } from 'src/models/product'
 import { getFormattedPrice } from 'src/utils'
@@ -46,7 +47,15 @@ const CatalogProducts = () => {
   }
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        height: '100%'
+      }}
+    >
       {loading && !products.length ? (
         <CatalogProductSkeleton />
       ) : (
@@ -65,6 +74,7 @@ const CatalogProducts = () => {
           })}
         </Fragment>
       )}
+      {!loading && !products.length && <NoProducts />}
     </Box>
   )
 }
