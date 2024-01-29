@@ -1,5 +1,6 @@
 import { environment } from 'src/config/environment'
 import { errorLogger, httpLogger, logger } from 'src/config/logger'
+import { BadRequestError } from 'src/errors/bad-request'
 import { NotFoundError } from 'src/errors/not-found'
 import { errorHandler } from 'src/middlewares/error-handler'
 import { router } from 'src/router'
@@ -9,9 +10,21 @@ import express from 'express'
 
 const server = express()
 
+server.use(
+  cors({
+    origin(requestOrigin, callback) {
+      if (!requestOrigin || requestOrigin !== environment.ALLOWED_ORIGIN) {
+        const errorMsg =
+          'The CORS policy for this site does not allow access from the specified Origin.'
+        return callback(new BadRequestError(errorMsg), false)
+      }
+      return callback(null, true)
+    }
+  })
+)
+
 server.use(httpLogger)
 server.use(errorLogger)
-server.use(cors({ origin: environment.ALLOWED_ORIGIN }))
 server.use(express.json())
 
 server.use(router)

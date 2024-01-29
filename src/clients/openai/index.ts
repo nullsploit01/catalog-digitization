@@ -19,7 +19,7 @@ class OpenAiClient {
     const completions = await this.openAIInstance.chat.completions.create({
       messages: [
         {
-          role: 'user',
+          role: 'assistant',
           content: message
         }
       ],
