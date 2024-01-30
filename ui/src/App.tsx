@@ -18,9 +18,7 @@ const App = () => {
         <Typography variant="h4">Catalog Digitization</Typography>
       </Box>
       <Box sx={{ height: '80%', overflow: 'auto' }}>
-        <Suspense fallback={<CustomBackdrop open />}>
-          <CatalogProducts />
-        </Suspense>
+        <CatalogProducts />
       </Box>
       <Box
         sx={{
@@ -29,15 +27,11 @@ const App = () => {
           px: 5
         }}
       >
-        <Suspense fallback={<CustomBackdrop open />}>
-          {products.length !== 0 && <AddProductsMenu />}
-        </Suspense>
-        <Suspense fallback={<CustomBackdrop open />}>
-          <EditProductModal />
-        </Suspense>
-        <Suspense fallback={<CustomBackdrop open />}>
-          <BulkUploadImagesModal />
-        </Suspense>
+        {products.length !== 0 && <AddProductsMenu />}
+
+        <EditProductModal />
+
+        <BulkUploadImagesModal />
       </Box>
     </Box>
   )
