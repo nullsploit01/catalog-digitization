@@ -1,4 +1,4 @@
-import '@fontsource/roboto/300.css';
+@import url('@fontsource/roboto/400.css');
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -18,19 +18,21 @@ import '@fontsource/roboto/300.css';
 
 @keyframes ripple {
   0% {
-    box-shadow: 0 0 0 0rem rgba(180, 150, 200, 0.2),
-                0 0 0 0.25rem rgba(180, 150, 200, 0.2),
-                0 0 0 0.75rem rgba(180, 150, 200, 0.2),
-                0 0 0 1.25rem rgba(180, 150, 200, 0.2);
+    box-shadow:
+      0 0 0 0rem rgba(180, 150, 200, 0.2),
+      0 0 0 0.25rem rgba(180, 150, 200, 0.2),
+      0 0 0 0.75rem rgba(180, 150, 200, 0.2),
+      0 0 0 1.25rem rgba(180, 150, 200, 0.2);
   }
   100% {
-    box-shadow: 0 0 0 0.75rem rgba(180, 150, 200, 0.2),
-                0 0 0 1.25rem rgba(180, 150, 200, 0.2),
-                0 0 0 1.75rem rgba(180, 150, 200, 0);
+    box-shadow:
+      0 0 0 0.75rem rgba(180, 150, 200, 0.2),
+      0 0 0 1.25rem rgba(180, 150, 200, 0.2),
+      0 0 0 1.75rem rgba(180, 150, 200, 0);
   }
 }
 
-
 body {
   margin: 0;
+  background-color: #f6f6f6;
 }
