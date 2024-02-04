@@ -53,6 +53,7 @@ const CatalogProducts = () => {
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
+        alignItems: 'center',
         height: '100%'
       }}
     >
