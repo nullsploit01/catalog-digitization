@@ -79,8 +79,8 @@ const CatalogProducts = () => {
           })}
         </Fragment>
       )}
-      {!loading && !products.length && <NoProducts />}
-      {!loading && products.length && !searchResults.length && <NoProductsFound />}
+      {!loading && !!!products.length && <NoProducts />}
+      {!loading && !!products.length && !!!searchResults.length && <NoProductsFound />}
     </Box>
   )
 }
