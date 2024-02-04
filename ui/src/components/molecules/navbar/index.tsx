@@ -57,7 +57,7 @@ const CustomNavBar = () => {
 
   useDebounce(() => {
     handleProductSearch(_searchQuery)
-  }, [searchResults, _searchQuery])
+  }, [_searchQuery])
 
   return (
     <Box sx={{ flexGrow: 1 }}>

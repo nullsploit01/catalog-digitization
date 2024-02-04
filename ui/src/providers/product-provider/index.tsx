@@ -1,5 +1,4 @@
 import defaultProductImage from 'src/assets/images/default_product_image.png'
-import { useDebounce } from 'src/hooks/debounce'
 import { useNotification } from 'src/hooks/notification'
 import { IProduct } from 'src/models/product'
 import { productService } from 'src/services/product'
@@ -7,6 +6,7 @@ import { generateID } from 'src/utils'
 
 import { IProductContext, IProductContextProvider } from './interface'
 import { AxiosError } from 'axios'
+import { distance } from 'fastest-levenshtein'
 import { isEqual } from 'lodash'
 import { createContext, FC, useEffect, useRef, useState } from 'react'
 
@@ -103,20 +103,39 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
   const handleProductSearch = (searchQuery: string) => {
     if (!searchQuery?.trim()) {
       setSearchResults(_products)
+      return
     }
 
+    const threshold = 3
     const normalizedQuery = searchQuery.toLowerCase()
 
-    const filteredProducts = _products.filter(
-      (product) =>
-        (product.id && product.id.toLowerCase().includes(normalizedQuery)) ||
-        (product.name && product.name.toLowerCase().includes(normalizedQuery)) ||
-        (product.description && product.description.toLowerCase().includes(normalizedQuery)) ||
-        (product.brand && product.brand.toLowerCase().includes(normalizedQuery)) ||
-        (product.model && product.model.toLowerCase().includes(normalizedQuery)) ||
-        (product.category && product.category.toLowerCase().includes(normalizedQuery)) ||
-        (product.subCategory && product.subCategory.toLowerCase().includes(normalizedQuery))
-    )
+    const calculateLevenshteinDistance = (stringToCompare: string) =>
+      distance(stringToCompare || '', normalizedQuery)
+
+    const filteredProducts = _products.filter((product) => {
+      const attributesToCheck: (keyof IProduct)[] = [
+        'id',
+        'name',
+        'description',
+        'brand',
+        'model',
+        'category',
+        'subCategory'
+      ]
+
+      return attributesToCheck.some((attribute) => {
+        let attributeValue = product[attribute]
+        if (attributeValue && typeof attributeValue === 'string') {
+          attributeValue = attributeValue.toString().toLowerCase()
+          const words = attributeValue.split(/\s*[\s,;.!]+\s*/)
+          return (
+            words.some((word) => calculateLevenshteinDistance(word) <= threshold) ||
+            attributeValue.includes(normalizedQuery)
+          )
+        }
+        return false
+      })
+    })
 
     setSearchResults(filteredProducts)
   }
