@@ -1,4 +1,4 @@
-import noProductImage from 'src/assets/images/no-product.png'
+import noProductImage from 'src/assets/images/no_product.png'
 import AddProductsMenu from 'src/components/organisms/add-products-menu'
 
 import { Box, Typography } from '@mui/material'

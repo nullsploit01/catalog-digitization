@@ -1,5 +1,6 @@
 import CustomBackdrop from 'src/components/atoms/backdrop'
 import CustomCard from 'src/components/molecules/card'
+import NoProductsFound from 'src/components/molecules/no-products-found'
 import NoProducts from 'src/components/organisms/no-products'
 import { useProducts } from 'src/hooks/products'
 import { IProduct } from 'src/models/product'
@@ -11,7 +12,7 @@ import { Box, ButtonGroup, IconButton, Typography } from '@mui/material'
 import { Fragment } from 'react'
 
 const CatalogProducts = () => {
-  const { products, removeProduct, editProduct, loading } = useProducts()
+  const { searchResults, products, removeProduct, editProduct, loading } = useProducts()
 
   const renderContent = (product: IProduct) => {
     return (
@@ -62,7 +63,7 @@ const CatalogProducts = () => {
       ) : (
         <Fragment>
           <CustomBackdrop message="Processing Images" open={loading} />
-          {products.map((product, index) => {
+          {searchResults.map((product, index) => {
             return (
               <Box key={index} sx={{ p: 3 }}>
                 <CustomCard
@@ -76,6 +77,7 @@ const CatalogProducts = () => {
         </Fragment>
       )}
       {!loading && !products.length && <NoProducts />}
+      {!loading && products.length && !searchResults.length && <NoProductsFound />}
     </Box>
   )
 }

@@ -1,3 +1,5 @@
+import { useProducts } from 'src/hooks/products'
+
 import SearchIcon from '@mui/icons-material/Search'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -48,6 +50,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }))
 
 const CustomNavBar = () => {
+  const { handleProductSearch } = useProducts()
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar color="secondary" position="static">
@@ -64,7 +68,11 @@ const CustomNavBar = () => {
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase placeholder="Search Products" />
+            <StyledInputBase
+              onChange={(e) => handleProductSearch(e.target.value)}
+              type="search"
+              placeholder="Search Products"
+            />
           </Search>
         </Toolbar>
       </AppBar>

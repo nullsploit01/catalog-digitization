@@ -7,7 +7,7 @@ import { generateID } from 'src/utils'
 import { IProductContext, IProductContextProvider } from './interface'
 import { AxiosError } from 'axios'
 import { isEqual } from 'lodash'
-import { createContext, FC, useRef, useState } from 'react'
+import { createContext, FC, useEffect, useRef, useState } from 'react'
 
 export const ProductContext = createContext<IProductContext>({} as IProductContext)
 
@@ -18,9 +18,14 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
 
   const [_loading, setLoading] = useState(false)
   const [_products, setProducts] = useState<IProduct[]>([])
+  const [_searchResults, setSearchResults] = useState<IProduct[]>([])
   const [_productToEdit, setProductToEdit] = useState<IProduct | null>(null)
   const [_showProductImageEditModal, setShowProductImageEditModal] = useState(false)
   const [_showBulkUploadImagesModal, setShowBulkUploadImagesModal] = useState(false)
+
+  useEffect(() => {
+    setSearchResults(_products)
+  }, [_products])
 
   const addProduct = (product: IProduct | null = null) => {
     product = {
@@ -94,6 +99,27 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
     }
   }
 
+  const handleProductSearch = (searchQuery: string) => {
+    if (!searchQuery?.trim()) {
+      setSearchResults(_products)
+    }
+
+    const normalizedQuery = searchQuery.toLowerCase()
+
+    const filteredProducts = _products.filter(
+      (product) =>
+        (product.id && product.id.toLowerCase().includes(normalizedQuery)) ||
+        (product.name && product.name.toLowerCase().includes(normalizedQuery)) ||
+        (product.description && product.description.toLowerCase().includes(normalizedQuery)) ||
+        (product.brand && product.brand.toLowerCase().includes(normalizedQuery)) ||
+        (product.model && product.model.toLowerCase().includes(normalizedQuery)) ||
+        (product.category && product.category.toLowerCase().includes(normalizedQuery)) ||
+        (product.subCategory && product.subCategory.toLowerCase().includes(normalizedQuery))
+    )
+
+    setSearchResults(filteredProducts)
+  }
+
   const closeEditProductModal = () => {
     setProductToEdit(null)
   }
@@ -118,6 +144,7 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
     <ProductContext.Provider
       value={{
         loading: _loading,
+        searchResults: _searchResults,
         products: _products,
         productToEdit: _productToEdit,
         isBulkUploadImagesModalOpen: _showBulkUploadImagesModal,
@@ -127,6 +154,7 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
         editProduct,
         removeProduct,
         updateProduct,
+        handleProductSearch,
         closeEditProductModal,
         bulkUploadProductImages,
         openBulkUploadImagesModal,
