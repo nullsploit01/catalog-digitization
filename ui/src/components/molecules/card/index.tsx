@@ -7,8 +7,11 @@ import { FC, Fragment } from 'react'
 
 const CustomCard: FC<ICustomCardProps> = ({ image, content, actions }) => {
   return (
-    <Card variant="outlined" sx={{ width: 345, textWrap: 'wrap', overflow: 'auto' }}>
-      {image && <CardMedia sx={{ height: 140, py: 8 }} image={image} />}
+    <Card
+      variant="outlined"
+      sx={{ width: 345, textWrap: 'wrap', overflow: 'auto', borderRadius: '5%', boxShadow: 7 }}
+    >
+      {image && <CardMedia sx={{ height: 140, p: 8 }} image={image} />}
       <CardContent>
         <Fragment>{content}</Fragment>
       </CardContent>
