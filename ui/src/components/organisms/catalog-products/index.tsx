@@ -60,7 +60,7 @@ const CatalogProducts = () => {
         <CatalogProductSkeleton />
       ) : (
         <Fragment>
-          <CustomBackdrop open={loading} />
+          <CustomBackdrop message="Processing Images" open={loading} />
           {products.map((product, index) => {
             return (
               <Box key={index} sx={{ p: 3 }}>
