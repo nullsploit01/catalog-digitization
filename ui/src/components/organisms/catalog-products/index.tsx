@@ -61,7 +61,7 @@ const CatalogProducts = () => {
         height: '100%'
       }}
     >
-      {loading && !products.length ? (
+      {loading && !!!products.length ? (
         <CatalogProductSkeleton />
       ) : (
         <Fragment>
