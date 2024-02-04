@@ -18,10 +18,13 @@ const CatalogProducts = () => {
     return (
       <Fragment>
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography gutterBottom variant="h5" component="div">
-            {product.name}
-          </Typography>
-          <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+          <Box sx={{ mb: 2 }}>
+            <Typography sx={{ lineHeight: '50%' }} gutterBottom variant="h5" component="div">
+              {product.name}
+            </Typography>
+            <Typography variant="caption">Product #: {product?.id}</Typography>
+          </Box>
+          <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
             {getFormattedPrice(product.price)}
           </Typography>
         </Box>

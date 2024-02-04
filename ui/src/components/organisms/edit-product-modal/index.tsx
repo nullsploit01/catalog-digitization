@@ -99,7 +99,10 @@ const EditProductModal = () => {
                 justifyContent: 'space-between'
               }}
             >
-              <Typography variant="h5">Edit {_productState?.name}</Typography>
+              <Box sx={{ lineHeight: '50%' }}>
+                <Typography variant="h5">Edit {_productState?.name}</Typography>
+                <Typography variant="caption">Product #: {_productState?.id}</Typography>
+              </Box>
               <Tooltip arrow placement="right" title="Voice Input">
                 <IconButton className={clsx({ ripple: isRecording })} onClick={handleAudioClick}>
                   <KeyboardVoice fontSize="large" color="secondary" />

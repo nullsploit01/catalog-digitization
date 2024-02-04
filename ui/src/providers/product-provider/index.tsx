@@ -29,7 +29,7 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
 
   const addProduct = (product: IProduct | null = null) => {
     product = {
-      id: product?.id ?? generateID(),
+      id: product?.id ?? generateID(10),
       name: product?.name ?? `Product ${productCount.current}`,
       price: product?.price ?? 0,
       image: product?.image ?? defaultProductImage,
