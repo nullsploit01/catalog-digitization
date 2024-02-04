@@ -1,4 +1,5 @@
 import defaultProductImage from 'src/assets/images/default_product_image.png'
+import { useDebounce } from 'src/hooks/debounce'
 import { useNotification } from 'src/hooks/notification'
 import { IProduct } from 'src/models/product'
 import { productService } from 'src/services/product'

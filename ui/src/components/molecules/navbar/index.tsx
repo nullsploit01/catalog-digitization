@@ -1,3 +1,4 @@
+import { useDebounce } from 'src/hooks/debounce'
 import { useProducts } from 'src/hooks/products'
 
 import SearchIcon from '@mui/icons-material/Search'
@@ -7,6 +8,7 @@ import InputBase from '@mui/material/InputBase'
 import { alpha, styled } from '@mui/material/styles'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
+import { useState } from 'react'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -50,7 +52,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }))
 
 const CustomNavBar = () => {
-  const { handleProductSearch } = useProducts()
+  const [_searchQuery, setSearchQuery] = useState('')
+  const { handleProductSearch, searchResults } = useProducts()
+
+  useDebounce(() => {
+    handleProductSearch(_searchQuery)
+  }, [searchResults, _searchQuery])
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -69,7 +76,7 @@ const CustomNavBar = () => {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              onChange={(e) => handleProductSearch(e.target.value)}
+              onChange={(e) => setSearchQuery(e.target.value)}
               type="search"
               placeholder="Search Products"
             />
