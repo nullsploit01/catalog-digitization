@@ -1,5 +1,6 @@
 import CustomLinear from 'src/components/atoms/linear'
 import CustomModal from 'src/components/molecules/modal'
+import { useNotification } from 'src/hooks/notification'
 import { useProducts } from 'src/hooks/products'
 import { IProduct } from 'src/models/product'
 import { productService } from 'src/services/product'
@@ -17,6 +18,7 @@ import {
   Typography
 } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
+import { AxiosError } from 'axios'
 import clsx from 'clsx'
 import { Form, Formik } from 'formik'
 import { Fragment, useEffect, useState } from 'react'
@@ -27,6 +29,7 @@ const EditProductModal = () => {
     useProducts()
 
   const { startRecording, stopRecording, recordingBlob, isRecording } = useAudioRecorder()
+  const { showNotification } = useNotification()
 
   const [_productState, setProductState] = useState<IProduct>({} as IProduct)
   const [_showLinear, setShowLinear] = useState(false)
@@ -69,7 +72,6 @@ const EditProductModal = () => {
       setShowLinear(true)
       const formData = new FormData()
       formData.append('file', recordingBlob)
-
       productService
         .uploadVoiceInput(formData)
         .then(({ data }) => {
@@ -77,7 +79,9 @@ const EditProductModal = () => {
         })
         .finally(() => setShowLinear(false))
     } catch (error) {
-      console.log(error)
+      if (!(error instanceof AxiosError)) {
+        showNotification('Something went wrong while processing audio')
+      }
     }
   }
 

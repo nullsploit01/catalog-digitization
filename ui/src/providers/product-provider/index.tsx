@@ -5,6 +5,7 @@ import { productService } from 'src/services/product'
 import { generateID } from 'src/utils'
 
 import { IProductContext, IProductContextProvider } from './interface'
+import { AxiosError } from 'axios'
 import { isEqual } from 'lodash'
 import { createContext, FC, useRef, useState } from 'react'
 
@@ -58,26 +59,39 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
     showNotification('Updated Product', 'success')
   }
 
-  const bulkUploadProductImages = (images: FileList) => {
+  const bulkUploadProductImages = async (images: FileList) => {
+    const batchingSize = 15
     setLoading(true)
+    try {
+      for (let batchStart = 0; batchStart < images.length; batchStart += batchingSize) {
+        const batchedImages = Array.from(images).slice(batchStart, batchStart + batchingSize)
 
-    productService
-      .uploadProductImages(images)
-      .then((response) => {
-        Array.from(images).map((image) => {
+        const files: FormData = new FormData()
+        batchedImages.forEach((image, index) => {
+          files.append(`file${index + 1}`, image)
+        })
+        const { data } = await productService.uploadProductImages(files)
+
+        Array.from(batchedImages).map((image) => {
           const reader = new FileReader()
           reader.readAsDataURL(image)
           reader.onload = () => {
             const product = {
               image: reader.result ?? '',
-              color: response.data.find((res) => isEqual(image.name, res.name))?.color
+              color: data.find((res) => isEqual(image.name, res.name))?.color
             }
             addProduct(product)
           }
         })
-      })
-      .then(() => showNotification('Products Added Successfully', 'success'))
-      .finally(() => setLoading(false))
+      }
+      showNotification('Products Added Successfully', 'success')
+    } catch (error) {
+      if (!(error instanceof AxiosError)) {
+        showNotification('Something went wrong while uplaoding images', 'error')
+      }
+    } finally {
+      setLoading(false)
+    }
   }
 
   const closeEditProductModal = () => {
