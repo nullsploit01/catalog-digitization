@@ -76,15 +76,19 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
         batchedImages.forEach((image, index) => {
           files.append(`file${index + 1}`, image)
         })
-        const { data } = await productService.uploadProductImages(files)
+
+        await new Promise((r) => setTimeout(r, 500))
+
+        // enable this api call to get image colors
+        // const { data } = await productService.uploadProductImages(files)
 
         Array.from(batchedImages).map((image) => {
           const reader = new FileReader()
           reader.readAsDataURL(image)
           reader.onload = () => {
             const product = {
-              image: reader.result ?? '',
-              color: data.find((res) => isEqual(image.name, res.name))?.color
+              image: reader.result ?? ''
+              // color: data.find((res) => isEqual(image.name, res.name))?.color
             }
             addProduct(product)
           }
