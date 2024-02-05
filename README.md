@@ -6,7 +6,7 @@
 
 ## About The Project
 
-This web-app showcases a method to digitize and enhance the process of creating a ecommerce catalog for sellers. It uses AI to get user 'svoice input and fill up product details.
+This web-app showcases a method to digitize and enhance the process of creating a ecommerce catalog for sellers. It uses AI to get user's voice input and fill up product details.
 
 ### Built With
 
@@ -62,5 +62,5 @@ This web-app showcases a method to digitize and enhance the process of creating 
    ```
    - Start UI server
    ```sh
-   	npm run dev
+   npm run dev
    ```
