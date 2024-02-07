@@ -4,5 +4,5 @@ export const generateID = (length = 6) =>
     .substring(0, length)
 
 export const getFormattedPrice = (price: number = 0) => {
-  return price.toFixed(2)
+  return price?.toFixed(2)
 }
