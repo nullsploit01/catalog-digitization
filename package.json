@@ -4,7 +4,6 @@
   "description": "Build For Bharat Hackathon Project",
   "main": "index.ts",
   "scripts": {
-    "test": "jest",
     "prepare": "husky install",
     "start": "node dist/index.js",
     "start:prod": "npm run build && npm run start",
