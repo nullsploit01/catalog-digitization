@@ -2,12 +2,15 @@ import { axiosClient } from 'src/clients/axios'
 import { IProduct, IProductImageColor } from 'src/models/product'
 
 class ProductService {
+  ping = async () => {
+    return await axiosClient.get('/ping')
+  }
   uploadProductImages = async (images: FormData | FileList) => {
-    return axiosClient.post<IProductImageColor[]>('/images', images)
+    return await axiosClient.post<IProductImageColor[]>('/images', images)
   }
 
   uploadVoiceInput = async (audio: any) => {
-    return axiosClient.post<IProduct>('/audio', audio)
+    return await axiosClient.post<IProduct>('/audio', audio)
   }
 }
 

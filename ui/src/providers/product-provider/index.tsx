@@ -25,6 +25,10 @@ export const ProductContextProvider: FC<IProductContextProvider> = ({ children }
   const [_showBulkUploadImagesModal, setShowBulkUploadImagesModal] = useState(false)
 
   useEffect(() => {
+    productService.ping()
+  }, [])
+
+  useEffect(() => {
     setSearchResults(_products)
   }, [_products])
 

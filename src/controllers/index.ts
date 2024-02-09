@@ -4,6 +4,14 @@ import { IControllerMethod } from 'src/interfaces/index'
 import { productService } from 'src/services/product'
 
 class Controller {
+  ping: IControllerMethod = async (req, res, next) => {
+    try {
+      return res.send({ message: 'pong' })
+    } catch (error) {
+      next(error)
+    }
+  }
+
   uploadImages: IControllerMethod = async (req, res, next) => {
     try {
       const images = req.files

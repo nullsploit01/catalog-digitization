@@ -33,10 +33,10 @@ server.use('*', () => {
   throw new NotFoundError()
 })
 
-server.use(errorHandler)
-
 server.listen(environment.PORT, () => {
   logger.info(
     `Server is running on http://localhost:${environment.PORT}/ in ${environment.NODE_ENV} mode`
   )
 })
+
+server.use(errorHandler)
