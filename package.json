@@ -1,6 +1,6 @@
 {
   "name": "catalog-digitization",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Build For Bharat Hackathon Project",
   "main": "index.ts",
   "scripts": {
