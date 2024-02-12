@@ -19,16 +19,11 @@ class ProductService {
   extractProductInformation = async (audioFile: Express.Multer.File) => {
     const transcript = await openAiClient.whisper(audioFile)
 
-    const message = `Create a json object of interface { 
-                      name?: string 
-                      price?: number 
-                      description?: string 
-                      color?: string
-                      brand?: string 
-                      model?: string 
-                      category?: string 
-                      subCategory?: string 
-                      inventory?: number } for the transcript: ${transcript} do not add key value pair in json that are not in transcript`
+    const message = `Analyse the following transcript and return values for given parameters. 
+                    Response should be in json format with 
+                          'name', 'price' as number, 'description', 'color', 'brand', 'model', 'category', 'subcategory', 'inventory' as number parameters
+                    Only form json with keys in transcript, none of the parameters are required to be in json
+                    transcript: ${transcript}`
 
     const response = await openAiClient.chatCompletions(message)
 
