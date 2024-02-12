@@ -75,7 +75,7 @@ const EditProductModal = () => {
       productService
         .uploadVoiceInput(formData)
         .then(({ data }) => {
-          setProductState({ ...productToEdit, ...data })
+          setProductState({ ..._productState, ...data })
         })
         .finally(() => setShowLinear(false))
     } catch (error) {
@@ -133,7 +133,7 @@ const EditProductModal = () => {
                                   <Tooltip arrow placement="right" title="Edit Image">
                                     <CardMedia
                                       sx={{ py: 8 }}
-                                      image={productToEdit.image.toString()}
+                                      image={productToEdit.image?.toString() ?? ''}
                                     />
                                   </Tooltip>
                                 )}
@@ -157,7 +157,7 @@ const EditProductModal = () => {
                               sx={{ mx: 1, mb: 2 }}
                               name="name"
                               onChange={handleChange}
-                              value={values.name}
+                              value={values.name || ''}
                               label="Name"
                             />
                             <TextField
@@ -171,7 +171,7 @@ const EditProductModal = () => {
                               InputProps={{ inputProps: { min: 0 } }}
                               name="price"
                               onChange={handleChange}
-                              value={values.price}
+                              value={values.price || 0}
                               label="Price"
                             />
                           </Box>
@@ -188,7 +188,7 @@ const EditProductModal = () => {
                           name="description"
                           label="Description"
                           onChange={handleChange}
-                          value={values.description}
+                          value={values.description || ''}
                         />
                       </Box>
                     </Grid>
@@ -200,7 +200,7 @@ const EditProductModal = () => {
                         name="brand"
                         label="Brand"
                         onChange={handleChange}
-                        value={values.brand}
+                        value={values.brand || ''}
                       />
                       <TextField
                         InputLabelProps={{ shrink: Boolean(values.model) }}
@@ -209,7 +209,7 @@ const EditProductModal = () => {
                         name="model"
                         label="Model"
                         onChange={handleChange}
-                        value={values.model}
+                        value={values.model || ''}
                       />
                     </Grid>
                     <Grid xs={12}>
@@ -220,7 +220,7 @@ const EditProductModal = () => {
                         name="category"
                         label="Category"
                         onChange={handleChange}
-                        value={values.category}
+                        value={values.category || ''}
                       />
                       <TextField
                         InputLabelProps={{ shrink: Boolean(values.subCategory) }}
@@ -229,7 +229,7 @@ const EditProductModal = () => {
                         name="subCategory"
                         label="Sub Category"
                         onChange={handleChange}
-                        value={values.subCategory}
+                        value={values.subCategory || ''}
                       />
                     </Grid>
                     <Grid xs={12}>
@@ -240,7 +240,7 @@ const EditProductModal = () => {
                         name="color"
                         label="Color"
                         onChange={handleChange}
-                        value={values.color}
+                        value={values.color || ''}
                       />
 
                       <TextField
@@ -253,7 +253,7 @@ const EditProductModal = () => {
                         InputProps={{ inputProps: { min: 0 } }}
                         name="inventory"
                         onChange={handleChange}
-                        value={values.inventory}
+                        value={values.inventory || 0}
                         label="Inventory"
                       />
                     </Grid>
